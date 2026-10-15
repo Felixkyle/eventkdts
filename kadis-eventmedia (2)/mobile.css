@@ -1,0 +1,205 @@
+/* ============================================================
+   Kadis mobile navigation — styles
+   Shared across every page. Uses the same CSS variables already
+   defined in each page's :root (--bg, --amber, --line, etc).
+   ============================================================ */
+
+/* Hamburger button — hidden on desktop, shown once .nav-links hides */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--line-bright);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--ink);
+  border-radius: 2px;
+  transition: transform .3s cubic-bezier(.16,.8,.24,1), opacity .25s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 1100px) {
+  .hamburger { display: flex; }
+}
+
+/* Keep the nav bar from overflowing on small phones — the drawer
+   footer already repeats these two CTAs, so hide them from the
+   top bar itself below 700px and rely on the hamburger. */
+@media (max-width: 700px) {
+  .nav-actions .icon-btn,
+  .nav-actions a.btn-dark {
+    display: none;
+  }
+}
+
+/* Backdrop */
+.mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 90;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s ease, visibility .3s ease;
+}
+.mobile-backdrop.open { opacity: 1; visibility: visible; }
+
+/* Drawer panel */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(360px, 86vw);
+  background: var(--bg-2);
+  border-left: 1px solid var(--line-bright);
+  z-index: 95;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.16,.8,.24,1);
+  overflow-y: auto;
+  padding: 18px 18px 28px;
+  box-shadow: -20px 0 50px rgba(0,0,0,0.4);
+}
+.mobile-drawer.open { transform: translateX(0); }
+
+.mobile-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+.mobile-drawer-tag {
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: var(--ink-dimmer);
+}
+.mobile-drawer-close {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  border: 1px solid var(--line-bright);
+  background: transparent;
+  color: var(--ink-dim);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.mobile-drawer-close:hover { border-color: var(--amber); color: var(--amber-soft); }
+
+/* Flattened link list inside the drawer */
+.mobile-drawer-inner {
+  display: flex;
+  flex-direction: column;
+}
+.mobile-drawer-inner > a {
+  display: block;
+  padding: 14px 4px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+.mobile-drawer-inner .nav-item {
+  border-bottom: 1px solid var(--line);
+}
+.mobile-drawer-inner .m-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mobile-drawer-inner .m-row > a {
+  flex: 1;
+  padding: 14px 4px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.mobile-drawer-inner .m-chev-btn {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--ink-dim);
+  cursor: pointer;
+}
+.mobile-drawer-inner .m-chev-btn svg {
+  width: 18px;
+  height: 18px;
+  transition: transform .25s ease;
+}
+.mobile-drawer-inner .nav-item.open .m-chev-btn svg {
+  transform: rotate(180deg);
+}
+
+/* Submenu panel — override the desktop hover-dropdown styling
+   entirely; on mobile it's an inline accordion, not a floating card */
+.mobile-drawer-inner .nav-drop {
+  position: static;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0 0 6px 10px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s ease;
+}
+.mobile-drawer-inner .nav-item.open .nav-drop {
+  max-height: 900px;
+}
+.mobile-drawer-inner .nav-drop a {
+  display: block;
+  padding: 8px 6px;
+  font-size: 13px;
+  color: var(--ink-dim);
+  border-radius: 8px;
+}
+.mobile-drawer-inner .nav-drop a:hover {
+  background: rgba(217, 119, 46, 0.08);
+  color: var(--amber-soft);
+}
+
+/* Drawer footer CTAs */
+.mobile-drawer-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.mobile-drawer-foot a {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Lock background scroll while the drawer is open */
+body.no-scroll {
+  overflow: hidden;
+}

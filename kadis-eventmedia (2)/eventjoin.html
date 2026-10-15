@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Our Team — Media & Events Professionals | KADIS ICT & Engineering Solutions</title>
+  <meta name="description"
+    content="Join KADIS' network of media and event technology professionals — photographers, videographers, editors, sound and lighting technicians, and event tech specialists across Abuja.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0C0F;
+      --bg-2: #131519;
+      --bg-3: #1A1D22;
+      --bg-4: #20232A;
+
+      --ink: #EDEEEC;
+      --ink-dim: #9A9FA8;
+      --ink-dimmer: #5C616A;
+      --line: rgba(255, 255, 255, 0.07);
+      --line-bright: rgba(255, 255, 255, 0.13);
+
+      --amber: #D9772E;
+      --amber-deep: #B85F22;
+      --amber-soft: #E8A15E;
+
+      --moss: #A9B84C;
+
+      --glow: 0 0 60px rgba(217, 119, 46, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Manrope', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Sora', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    .mono {
+      font-family: 'Space Mono', monospace;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    ::selection {
+      background: var(--amber-soft);
+      color: #111;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 15% 8%, rgba(217, 119, 46, 0.08), transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(169, 184, 76, 0.045), transparent 35%),
+        radial-gradient(circle at 50% 90%, rgba(217, 119, 46, 0.05), transparent 45%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ---------- Top utility bar ---------- */
+    .topbar {
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--line);
+      font-size: 12.5px;
+      color: var(--ink-dim);
+    }
+
+    .topbar .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 38px;
+      flex-wrap: wrap;
+    }
+
+    .topbar .dot {
+      color: var(--amber-soft);
+      margin-right: 6px;
+    }
+
+    .topbar-right {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .topbar-right span.mono {
+      color: var(--amber-soft);
+      font-weight: 700;
+    }
+
+    .topbar-right a {
+      transition: color .2s;
+    }
+
+    .topbar-right a:hover {
+      color: var(--ink);
+    }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 12, 15, 0.82);
+      backdrop-filter: blur(16px) saturate(140%);
+      border-bottom: 1px solid var(--line);
+    }
+
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 78px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Sora';
+      font-weight: 800;
+      font-size: 22px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink-dim);
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-item>a {
+      position: relative;
+      padding: 6px 0;
+      transition: color .2s;
+      display: block;
+      margin-top: 15px;
+    }
+
+    .nav-item>a:hover,
+    .nav-item:hover>a {
+      color: var(--ink);
+    }
+
+    .nav-item>a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background: var(--amber);
+      transition: width .3s cubic-bezier(.16, .8, .24, 1);
+    }
+
+    .nav-item:hover>a::after {
+      width: 100%;
+    }
+
+    .nav-drop {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      min-width: 260px;
+      background: var(--bg-3);
+      border: 1px solid var(--line-bright);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.45);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .22s ease, transform .22s ease, visibility .22s;
+      z-index: 60;
+    }
+
+    .nav-item:hover .nav-drop {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(14px);
+    }
+
+    .nav-drop a {
+      display: block;
+      font-size: 13px;
+      color: var(--ink-dim);
+      font-weight: 600;
+      padding: 8px 10px;
+      border-radius: 8px;
+      transition: background .15s, color .15s;
+    }
+
+    .nav-drop a:hover {
+      background: rgba(217, 119, 46, 0.1);
+      color: var(--amber-soft);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--line-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-dim);
+      transition: all .2s;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--amber);
+      color: var(--amber-soft);
+    }
+
+    .btn-primary {
+      background: var(--amber);
+      color: #0B0C0F;
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 11px 20px;
+      border-radius: 10px;
+      box-shadow: 0 8px 22px rgba(217, 119, 46, 0.22);
+      transition: transform .25s cubic-bezier(.16, .8, .24, 1), box-shadow .25s, background .25s;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: var(--amber-soft);
+      box-shadow: 0 14px 30px rgba(217, 119, 46, 0.3);
+      color: rgb(243, 236, 236);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--line-bright);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 13px 22px;
+      border-radius: 10px;
+      transition: all .25s cubic-bezier(.16, .8, .24, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--amber);
+      background: rgba(217, 119, 46, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .btn-dark {
+      background: var(--bg-4);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 11px 20px;
+      border-radius: 10px;
+      border: 1px solid var(--line-bright);
+      transition: all .25s cubic-bezier(.16, .8, .24, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-dark:hover {
+      border-color: var(--amber);
+      color: white;
+      transform: translateY(-2px);
+      background: var(--amber);
+      box-shadow: 0 14px 30px rgba(223, 184, 154, 0.3);
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: 10px;
+      border: 1px solid var(--line-bright);
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--ink);
+      transition: transform .25s ease, opacity .2s ease;
+    }
+
+    nav.menu-open .nav-toggle span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    nav.menu-open .nav-toggle span:nth-child(2) {
+      opacity: 0;
+    }
+
+    nav.menu-open .nav-toggle span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-caret {
+      display: none;
+    }
+
+    @media (max-width: 1100px) {
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: var(--bg-3);
+        border-bottom: 1px solid var(--line-bright);
+        max-height: calc(100vh - 78px);
+        overflow-y: auto;
+        padding: 6px 20px 24px;
+        box-shadow: 0 24px 40px rgba(0, 0, 0, .45);
+      }
+
+      nav.menu-open .nav-links {
+        display: flex;
+      }
+
+      .nav-item:hover .nav-drop {
+        transform: none;
+        left: 0;
+        right: 0;
+      }
+
+      .nav-item.open .nav-drop {
+        transform: none;
+        left: 0;
+        right: 0;
+      }
+
+      .nav-links>a {
+        margin-top: 0 !important;
+        width: 100%;
+        padding: 14px 4px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav-item {
+        width: 100%;
+        position: relative;
+      }
+
+      .nav-item>a {
+        margin-top: 0 !important;
+        width: 100%;
+        padding: 14px 44px 14px 4px;
+        border-bottom: 1px solid var(--line);
+        box-sizing: border-box;
+      }
+
+      .nav-item>a::after {
+        display: none;
+      }
+
+      .nav-caret {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 44px;
+        height: 48px;
+        background: transparent;
+        border: none;
+        color: var(--ink-dim);
+        cursor: pointer;
+        transition: transform .2s ease, color .2s ease;
+      }
+
+      .nav-item.open .nav-caret {
+        transform: rotate(180deg);
+        color: var(--amber-soft);
+      }
+
+      .nav-drop {
+        position: static;
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        min-width: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.03);
+        border: none;
+        border-radius: 10px;
+        box-shadow: none;
+        padding: 6px;
+        margin: 0 0 10px;
+      }
+
+      .nav-item.open .nav-drop {
+        display: block;
+      }
+    }
+
+    .em-hero-photo {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line-bright);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+      z-index: 1;
+    }
+
+    .em-hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .em-hero-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(11, 12, 15, 0) 35%, rgba(11, 12, 15, 0.9) 100%);
+    }
+
+    .reel-stack {
+      z-index: 2;
+    }
+
+    @media (max-width: 560px) {
+
+      .nav-actions .icon-btn,
+      .nav-actions .btn-dark {
+        display: none;
+      }
+
+      .nav-actions {
+        gap: 8px;
+      }
+
+      .nav-actions .btn-primary {
+        padding: 9px 14px;
+        font-size: 12.5px;
+      }
+
+      .nav-inner {
+        height: 66px;
+      }
+
+      .logo img {
+        height: 32px;
+      }
+    }
+
+    /* ---------- Page header ---------- */
+    .page-hero {
+      padding: 64px 0 46px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Space Mono';
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--amber-soft);
+      background: rgba(199, 104, 31, 0.08);
+      border: 1px solid rgba(186, 93, 23, 0.25);
+      padding: 7px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: '●';
+      color: var(--moss);
+      font-size: 8px;
+    }
+
+    .page-hero h1 {
+      font-size: 44px;
+      line-height: 1.08;
+      font-weight: 800;
+      margin-bottom: 18px;
+      max-width: 760px;
+    }
+
+    .page-hero h1 .grad {
+      background: linear-gradient(100deg, var(--amber) 10%, var(--amber-soft) 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .page-hero p {
+      font-size: 16.5px;
+      color: var(--ink-dim);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .hero-perks {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .perk {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-dim);
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      padding: 9px 16px;
+    }
+
+    .perk .ic {
+      color: var(--amber-soft);
+    }
+
+    /* ---------- Form section ---------- */
+    .form-section {
+      padding: 20px 0 100px;
+    }
+
+    .form-shell {
+      display: grid;
+      grid-template-columns: 0.85fr 1.4fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .form-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-side {
+      position: sticky;
+      top: 100px;
+      background: linear-gradient(160deg, var(--bg-3), var(--bg-2));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 30px 26px;
+    }
+
+    .form-side h3 {
+      font-size: 19px;
+      margin-bottom: 14px;
+    }
+
+    .form-side p {
+      font-size: 13.5px;
+      color: var(--ink-dim);
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+
+    .side-step {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .side-step:first-of-type {
+      border-top: none;
+    }
+
+    .side-step b {
+      font-family: 'Space Mono';
+      color: var(--amber-soft);
+      font-size: 13px;
+      flex-shrink: 0;
+      width: 22px;
+    }
+
+    .side-step span {
+      font-size: 13px;
+      color: var(--ink-dim);
+      line-height: 1.6;
+    }
+
+    .side-contact {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--ink-dim);
+      line-height: 1.9;
+    }
+
+    .side-contact a {
+      color: var(--amber-soft);
+      font-weight: 700;
+    }
+
+    .form-card {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 36px;
+    }
+
+    @media (max-width: 600px) {
+      .form-card {
+        padding: 24px 18px;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 640px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 9px;
+    }
+
+    .form-group label .req {
+      color: var(--amber-soft);
+    }
+
+    .form-group label .opt {
+      color: var(--ink-dimmer);
+      font-weight: 500;
+      font-family: 'Space Mono';
+      font-size: 11px;
+      margin-left: 6px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="tel"],
+    .form-group input[type="email"],
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg-3);
+      border: 1px solid var(--line-bright);
+      border-radius: 10px;
+      padding: 13px 15px;
+      color: var(--ink);
+      font-family: 'Manrope';
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s, background .2s;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--ink-dimmer);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--amber);
+      background: var(--bg-4);
+    }
+
+    .form-group select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23E8A15E' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      padding-right: 40px;
+      cursor: pointer;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.6;
+    }
+
+    .form-hint {
+      font-size: 12px;
+      color: var(--ink-dimmer);
+      margin-top: 7px;
+    }
+
+    /* ---------- Expertise checklist ---------- */
+    .expertise-block {
+      border-top: 1px solid var(--line);
+      padding-top: 26px;
+      margin-top: 8px;
+      margin-bottom: 26px;
+    }
+
+    .expertise-block>.eb-head {
+      margin-bottom: 18px;
+    }
+
+    .eb-head h4 {
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    .eb-head p {
+      font-size: 13px;
+      color: var(--ink-dim);
+      line-height: 1.6;
+    }
+
+    .exp-group {
+      margin-bottom: 22px;
+    }
+
+    .exp-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .exp-group h5 {
+      font-family: 'Sora';
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--amber-soft);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .exp-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .exp-chip {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--bg-3);
+      border: 1px solid var(--line-bright);
+      border-radius: 10px;
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      font-size: 12.5px;
+      color: var(--ink-dim);
+      line-height: 1.4;
+    }
+
+    .exp-chip:hover {
+      border-color: rgba(217, 119, 46, 0.35);
+    }
+
+    .exp-chip input {
+      accent-color: var(--amber);
+      width: 15px;
+      height: 15px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .exp-chip:has(input:checked) {
+      border-color: var(--amber);
+      background: rgba(217, 119, 46, 0.08);
+      color: var(--ink);
+    }
+
+    .form-submit {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 26px;
+    }
+
+    .form-submit .note {
+      font-size: 12px;
+      color: var(--ink-dimmer);
+      max-width: 340px;
+      line-height: 1.6;
+    }
+
+    .form-submit button {
+      flex-shrink: 0;
+    }
+
+    /* ---------- Footer (verbatim from site template) ---------- */
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--bg-2);
+    }
+
+    .foot-promo {
+      background: linear-gradient(115deg, rgba(217, 119, 46, 0.10), rgba(169, 184, 76, 0.04));
+      border-bottom: 1px solid var(--line);
+      padding: 22px 0;
+    }
+
+    .foot-promo .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .foot-promo p {
+      font-size: 13.5px;
+      color: var(--ink-dim);
+      max-width: 760px;
+      line-height: 1.7;
+    }
+
+    .foot-promo b {
+      color: var(--ink);
+    }
+
+    .foot-main {
+      padding: 50px 0 36px;
+    }
+
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.3fr repeat(6, 1fr);
+      gap: 24px;
+      grid-template-columns: 1.3fr 1fr 1fr 1fr 0.8fr 0.8fr 0.9fr;
+    }
+
+    .foot-col h5 {
+      font-size: 12.5px;
+      color: var(--ink);
+      margin-bottom: 16px;
+      font-family: 'Space Mono';
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .foot-col a {
+      display: block;
+      font-size: 13px;
+      color: var(--ink-dim);
+      margin-bottom: 10px;
+      transition: color .2s;
+    }
+
+    .foot-col a:hover {
+      color: var(--amber-soft);
+    }
+
+    .foot-bottom {
+      padding: 22px 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      color: var(--ink-dimmer);
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .social-row a {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      border: 1px solid var(--line-bright);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      color: var(--ink-dim);
+      transition: all .2s;
+    }
+
+    .social-row a:hover {
+      border-color: var(--amber);
+      color: var(--amber-soft);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 900px) {
+      .foot-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .foot-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .wa-float {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      z-index: 70;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #25D366, #128C4A);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.35);
+      font-size: 26px;
+      color: #fff;
+      transition: transform .25s cubic-bezier(.16, .8, .24, 1);
+    }
+
+    .wa-float:hover {
+      transform: scale(1.08);
+    }
+
+    @media (max-width: 900px) {
+      .foot-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ---------- Success banner ---------- */
+    .success-banner {
+      max-width: 1240px;
+      margin: 0 auto 24px;
+      padding: 0 32px;
+    }
+
+    .success-banner .box {
+      background: rgba(169, 184, 76, 0.1);
+      border: 1px solid rgba(169, 184, 76, 0.35);
+      border-radius: 14px;
+      padding: 18px 22px;
+      font-size: 14px;
+      color: var(--ink);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .success-banner .box b {
+      color: var(--moss);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="wrap">
+      <div><span class="dot">●</span>Same-day delivery in Abuja for orders before 12 noon</div>
+      <div class="topbar-right">
+        <span>Nasarawa · Niger · Kaduna · Kogi</span>
+        <a class="mono" href="tel:08061379390">📞 0806 137 9390</a>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <div class="wrap nav-inner">
+      <a class="logo" href="index.html">
+        <img src="images/kadis eventmedia.png" alt="Kadis" style="height:38px; width:auto; border-radius:8px;">
+      </a>
+      <div class="nav-links">
+        <div class="nav-item"><a href="media.html">Media</a>
+          <div class="nav-drop mono">
+            <a href="media.html#photography">Photography</a>
+            <a href="media.html#videography">Videography</a>
+            <a href="media.html#event-photography-video">Event Photography & Video</a>
+            <a href="media.html#corporate-photography">Corporate Photography</a>
+            <a href="media.html#product-photography">Product Photography</a>
+            <a href="media.html#studio-photography">Studio Photography</a>
+            <a href="media.html#video-production">Video Production</a>
+            <a href="media.html#video-editing">Video Editing</a>
+            <a href="media.html#motion-graphics-animation">Motion Graphics & Animation</a>
+            <a href="media.html#graphics-design">Graphics Design</a>
+            <a href="media.html#social-media-content">Social Media Content</a>
+            <a href="media.html#tv-online-commercials">TV/Online Commercials</a>
+            <a href="media.html#advert-jingles">Advert Jingles</a>
+            <a href="media.html#podcast-production">Podcast Production</a>
+            <a href="media.html#livestreaming">Livestreaming</a>
+            <a href="media.html#drone-aerial-coverage">Drone/Aerial Coverage</a>
+            <a href="media.html#mc-dj-services">MC & DJ services</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="event.html">Events</a>
+          <div class="nav-drop mono">
+            <a href="event.html#event-planning-management">Event Planning & Management</a><a
+              href="event.html#corporate-events">Corporate Events</a>
+            <a href="event.html#conferences-summits">Conferences & Summits</a>
+            <a href="event.html#weddings">Weddings</a>
+            <a href="event.html#product-services-launches">Product & Services launches</a>
+            <a href="event.html#concerts-shows">Concerts & Shows</a>
+            <a href="event.html#product-launches">Product Launches</a>
+            <a href="event.html#professional-corporate-training">Professional & Corporate Training</a>
+            <a href="event.html#business-production-networking">Business Production & Networking</a>
+            <a href="event.html#exhibitions-trade-fairs">Exhibitions & Trade Fairs</a>
+            <a href="event.html#education-programs-events">Education programs & Events</a>
+            <a href="event.html#event-decoration-styling">Event Decoration & Styling</a>
+            <a href="event.html#event-coordination">Event Coordination</a>
+            <a href="event.html#seminar-workshops">Seminar & Workshops</a>
+            <a href="event.html#event-marketing-publicity">Event marketing & Publicity</a>
+            <a href="event.html#digital-marketing-social-media">Digital marketing & Social media Promotion</a>
+            <a href="event.html#event-production">Event Production</a><a
+              href="event.html#exhibitions-business-showcases">Exhibitions & Business Showcases</a>
+            <a href="event.html#branding-content-creation">Branding & content creation</a>
+            <a href="event.html#mc-dj-services">MC & DJ services</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="#rentals">Rentals</a>
+          <div class="nav-drop mono">
+            <a href="index.html#rent-cameras">Cameras</a>
+            <a href="index.html#rent-lenses">Lenses</a>
+            <a href="index.html#rent-lighting">Lighting Equipment</a>
+            <a href="index.html#rent-video-equipment">Video Equipment</a>
+            <a href="index.html#rent-audio">Audio & Sound Equipment</a>
+            <a href="index.html#rent-pa-systems">PA Systems</a>
+            <a href="index.html#rent-microphones">Microphones</a>
+            <a href="index.html#rent-projectors">Projectors & Screens</a>
+            <a href="index.html#rent-led-screens">LED Screens</a>
+            <a href="index.html#rent-tripods-gimbals">Tripods & Gimbals</a>
+            <a href="index.html#rent-staging">Staging & Event Equipment</a>
+            <a href="index.html#generators">Generators/Power Solutions</a>
+            <a href="index.html#phone-booth">Photo Booths</a>
+            <a href="index.html#complete-package">Complete Event Packages</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="portfolio.html">Portfolio</a>
+          <div class="nav-drop mono">
+            <a href="portfolio.html#cat-photography">Photography</a><a
+              href="portfolio.html#cat-videography">Videography</a><a href="portfolio.html#cat-events">Events</a>
+            <a href="portfolio.html#cat-commercials">Commercials</a><a href="portfolio.html#cat-branding">Branding</a><a
+              href="portfolio.html#cat-livestreams">Livestreams</a>
+            <a href="portfolio.html#cat-before-after">Before & After</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="package.html">Packages</a>
+          <div class="nav-drop mono">
+            <a href="package.html#wedding">Wedding</a><a href="package.html#corporate">Corporate</a><a
+              href="package.html#event-coverage">Event Coverage</a>
+            <a href="package.html#livestream">Livestream</a><a href="package.html#podcast">Podcast</a><a
+              href="package.html#equipment-rental">Equipment Rental</a>
+            <a href="package.html#full-production">Full Event Production Package</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="eventjoin.html">Join the Team</a>
+        </div>
+        <div class="nav-item"><a class="current" href="shop.html">Shop</a></div>
+        <a href="index.html#about" style="margin-top:15px;">About</a>
+        <a href="blog.html" style="margin-top:15px;">Blog</a>
+        <a href="index.html#contact" style="margin-top:15px;">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation menu"
+          aria-expanded="false"><span></span><span></span><span></span></button>
+        <a class="btn-dark"
+          href="https://wa.me/2348061379390?text=Hi%20Kadis%2C%20I%27d%20like%20to%20book%20or%20rent%20something.">Book
+          Now</a>
+        <a class="btn-primary"
+          href="https://wa.me/2348061379390?text=Hi%20Kadis%2C%20I%27d%20like%20a%20quote%20for%20media%2Fevents.">Request
+          a Quote</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="wrap page-hero">
+    <span class="eyebrow">KADIS EVENT MEDIA · JOIN OUR TEAM</span>
+    <h1>Join our professional team of <span class="grad">Media & Events Professionals</span></h1>
+    <p>KADIS Event Media works with a growing network of photographers, videographers, editors, DJs, MCs, sound and
+      lighting technicians, and event technology specialists across Abuja. Tell us your area of expertise and we'll
+      reach out when a project matches your skillset.</p>
+    <div class="hero-perks">
+      <div class="perk"><span class="ic">✓</span> Project-based & long-term opportunities</div>
+      <div class="perk"><span class="ic">✓</span> Work across Abuja and neighbouring states</div>
+      <div class="perk"><span class="ic">✓</span> Open to apprentices and experienced professionals</div>
+    </div>
+  </header>
+
+  <section class="form-section wrap" id="apply-form">
+    <div class="form-shell">
+
+      <aside class="form-side">
+        <h3>How it works</h3>
+        <p>Fill in the form with your details and area(s) of expertise. Our Event Media team reviews every
+          application and reaches out directly when there's a fit.</p>
+        <div class="side-step"><b>01</b><span>Tell us who you are and where you're based in Abuja.</span></div>
+        <div class="side-step"><b>02</b><span>Select every service that matches your core strengths — you can pick
+            more than one.</span></div>
+        <div class="side-step"><b>03</b><span>Submit — your application is sent straight to our team's inbox.</span>
+        </div>
+        <div class="side-contact">
+          Prefer to reach us directly?<br>
+          <a href="https://wa.me/2348061379390">Chat on WhatsApp</a> or email
+          <a href="mailto:kadisdigitals@gmail.com">kadisdigitals@gmail.com</a>
+        </div>
+      </aside>
+
+      <form class="form-card" id="joinForm" action="https://formspree.io/f/xrpgelak" method="POST">
+        <!-- Formspree configuration: same endpoint used by the site-wide
+             "Request a Solution" widget, so all leads land in one place. -->
+        <input type="hidden" name="_subject" value="New Join Our Team Application — KADIS Event Media">
+        <input type="hidden" name="form_name" value="Join Our Team — Event Media">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullName">Full name <span class="req">*</span></label>
+            <input type="text" id="fullName" name="Full Name" placeholder="e.g. Amina Yusuf" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="Phone Number" placeholder="e.g. 0803 123 4567" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email address <span class="req">*</span></label>
+            <input type="email" id="email" name="_replyto" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="location">Location within Abuja <span class="req">*</span></label>
+            <input type="text" id="location" name="Location within Abuja" placeholder="e.g. Apo, Wuse 2, Garki, Maitama"
+              required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="experience">Years of experience <span class="req">*</span></label>
+          <select id="experience" name="Years of Experience" required>
+            <option value="" disabled selected>Select your experience level</option>
+            <option value="Apprentice / Less than 1 year">Apprentice / Less than 1 year</option>
+            <option value="1 – 2 years">1 – 2 years</option>
+            <option value="3 – 5 years">3 – 5 years</option>
+            <option value="6 – 10 years">6 – 10 years</option>
+            <option value="10+ years">10+ years</option>
+          </select>
+        </div>
+
+        <div class="expertise-block">
+          <div class="eb-head">
+            <h4>Select area(s) of your expertise <span class="req">*</span></h4>
+            <p>Choose your core strengths — you can select as many as apply.</p>
+          </div>
+
+          <div class="exp-group">
+            <h5>🎥 Media Services</h5>
+            <div class="exp-grid">
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Apprentice/A Learner/Trainee"> Apprentice / A Learner / Trainee</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Photography Services">
+                Photography Services</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Videography Services">
+                Videography Services</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Event Photography">
+                Event Photography</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Event Videography">
+                Event Videography</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Corporate Photography">
+                Corporate Photography</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Corporate Videography">
+                Corporate Videography</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Product Photography">
+                Product Photography</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Product Videography">
+                Product Videography</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Studio Photography">
+                Studio Photography</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Video Editing"> Video
+                Editing</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Photo Editing & Retouching"> Photo Editing & Retouching</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Motion Graphics Design">
+                Motion Graphics Design</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Graphics Design">
+                Graphics Design</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Jingle Production">
+                Jingle Production</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Voice-Over Production">
+                Voice-Over Production</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Podcast Production">
+                Podcast Production</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Podcast Studio Setup">
+                Podcast Studio Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Livestreaming Services">
+                Livestreaming Services</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="YouTube Video Production">
+                YouTube Video Production</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Social Media Content Creation"> Social Media Content Creation</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Documentary Production">
+                Documentary Production</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="TV/Commercial Video Production"> TV/Commercial Video Production</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Event Highlight/Reels Production"> Event Highlight/Reels Production</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Drone Photography & Videography"> Drone Photography & Videography</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="DJ Services"> DJ
+                Services</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="MC Services"> MC
+                Services</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Media Coverage Services">
+                Media Coverage Services</label>
+            </div>
+          </div>
+
+          <div class="exp-group">
+            <h5>🎤 Events & Event Technology</h5>
+            <div class="exp-grid">
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Event Live Streaming Setup"> Event Live Streaming Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Event Sound System Installation"> Event Sound System Installation</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="PA/Public Address System Installation"> PA/Public Address System Installation</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Event Lighting Installation & Setup"> Event Lighting Installation & Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise" value="Stage Lighting Setup">
+                Stage Lighting Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="LED Screen Installation & Setup"> LED Screen Installation & Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Projector & Projection Screen Setup"> Projector & Projection Screen Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Conference Video System Setup"> Conference Video System Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Video Conferencing System Installation"> Video Conferencing System Installation</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Event Photography Booth/Photo Booth Setup"> Event Photography Booth/Photo Booth Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Event Backdrop & Branding"> Event Backdrop & Branding</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Stage Setup & Technical Support"> Stage Setup & Technical Support</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Digital Signage Installation"> Digital Signage Installation</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Outdoor Event Display Setup"> Outdoor Event Display Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Event Power/Backup Power Solutions"> Event Power/Backup Power Solutions</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Event CCTV/Security Camera Setup"> Event CCTV/Security Camera Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Access Control for Events"> Access Control for Events</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Wireless Microphone Setup"> Wireless Microphone Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Audio Recording System Setup"> Audio Recording System Setup</label>
+              <label class="exp-chip"><input type="checkbox" name="Areas of Expertise"
+                  value="Hybrid Event Technology Setup"> Hybrid Event Technology Setup</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="comments">Comments or additional information <span class="opt">(optional)</span></label>
+          <textarea id="comments" name="Comments or Additional Information"
+            placeholder="Tell us anything else — portfolio links, equipment you own, availability, past events you've worked on…"></textarea>
+        </div>
+
+        <div class="form-submit">
+          <p class="note">By submitting, you agree that KADIS ICT & Engineering Solutions may contact you about
+            relevant opportunities. Your application is sent directly to our Event Media team.</p>
+          <button type="submit" class="btn-primary" id="joinSubmit">Submit Application →</button>
+        </div>
+      </form>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-promo">
+      <div class="wrap">
+        <p><b>Ready to book?</b> — reach us by phone or WhatsApp for a quote on media, event production or
+          equipment rentals, anywhere within Abuja and 4 surrounding states.</p>
+        <a class="btn-primary" href="https://wa.me/2348061379390">Book Now →</a>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="foot-main">
+        <div class="foot-grid">
+          <div class="foot-col">
+            <a class="logo" href="index.html" style="margin-bottom:16px;">
+              <img src="images/kadis eventmedia.png" alt="Kadis" style="height:38px; width:auto; border-radius:8px;">
+            </a>
+            <p style="color:var(--ink-dim); font-size:13px; line-height:1.7; max-width:260px;">Kadis Events,
+              Media & Rentals production, coverage and equipment rentals for weddings, corporates, conferences and
+              concerts across Abuja.</p>
+          </div>
+          <div class="foot-col">
+            <h5>Media</h5>
+            <a href="media.html#photography">Photography</a>
+            <a href="media.html#videography">Videography</a>
+            <a href="media.html#video-production">Video Production</a>
+            <a href="media.html#video-editing">Video Editing</a>
+            <a href="media.html#graphics-design">Graphics & Branding</a>
+            <a href="media.html#motion-graphics-animation">Motion Graphics & Animation</a>
+            <a href="media.html#advert-jingles">Advert/Jingles</a>
+            <a href="media.html#podcast-production">Podcast Production</a>
+            <a href="media.html#livestreaming">Livestreaming</a>
+            <a href="media.html#digital-marketing">Digital Marketing</a>
+            <a href="media.html#digital-printing">Digital Printing</a>
+            <a href="media.html#leads-generation">Leads Generation</a>
+            <a href="media.html#website-designing">Website Designing</a>
+            <a href="media.html#social-media-ads">Social Media Ads</a>
+          </div>
+          <div class="foot-col">
+            <h5>Events</h5>
+            <a href="event.html##event-planning-management">Event Planning</a>
+            <a href="event.html#conferences-summits">Corporate Events</a>
+            <a href="event.html#conferences-summits">Conferences</a>
+            <a href="event.html#weddings">Weddings</a>
+            <a href="event.html#concerts-shows">Concert & Shows</a>
+            <a href="event.html#product-launches">Product Launches</a>
+            <a href="event.html#event-production">Event Production</a>
+            <a href="event.html#event-decoration">Event Decoration</a>
+          </div>
+          <div class="foot-col">
+            <h5>Rentals</h5>
+            <a href="index.html#rentals">15-Inch Double Speakers</a>
+            <a href="index.html#rentals">Power Amplifiers</a>
+            <a href="index.html#rentals">Mixers</a>
+            <a href="index.html#rentals">Public Address Systems</a>
+            <a href="index.html#rentals">Mobile Speakers</a>
+            <a href="index.html#rentals">Microphones</a>
+            <a href="index.html#rentals">LED Screens</a>
+            <a href="index.html#rentals">Projectors</a>
+            <a href="index.html#rentals">Laptops</a>
+            <a href="index.html#rentals">Paper Printers</a>
+            <a href="index.html#rentals">Photo/Passport Printers</a>
+            <a href="index.html#rentals">Photocopiers</a>
+            <a href="index.html#rentals">Scanners</a>
+            <a href="index.html#rentals">Photo Cameras</a>
+            <a href="index.html#rentals">Video Cameras</a>
+            <a href="index.html#rentals">Mobile Power Tanks</a>
+            <a href="index.html#rentals">Ring Lights</a>
+            <a href="index.html#rentals">Tripods</a>
+            <a href="index.html#rentals">Drones</a>
+            <a href="index.html#rentals">Delivery Bikes</a>
+            <a href="index.html#rentals">Welding Machines</a>
+            <a href="index.html#rentals">Drilling Machines</a>
+            <a href="index.html#rentals">ICT Engineering Tools</a>
+            <a href="index.html#rentals">Satellite Trackers & Finders</a>
+            <a href="index.html#rentals">Walkie Talkies</a>
+            <a href="index.html#rentals">Garretts</a>
+            <a href="index.html#rentals">CCTV Cameras</a>
+            <a href="index.html#rentals">Routers & Switches</a>
+
+            <a href="package.html">Event Packages</a>
+          </div>
+          <div class="foot-col">
+            <h5>Company</h5>
+            <a href="index.html#about">About Us</a>
+            <a href="portfolio.html">Portfolio</a>
+            <a href="blog.html">Blog</a>
+            <a href="#faqs">FAQs</a>
+          </div>
+          <div class="foot-col">
+            <h5>Contact</h5>
+            <a href="tel:08024207231">0806 137 9390 </a>
+            <a href="tel:08024207231">0802 420 7231</a>
+            <a href="#">Head of Service, Block B, 8th Floor, Federal Secretariat, CBD/Maitama, Abuja</a>
+            <a href="#">Branch:</strong> Apo Ultra Modern Market, Apo, opposite Apo Shoprite, after
+              NNPC/Dankogi Junction,
+              Shop F1119 </a>
+            <a href="mailto:kadisdigitals@gmail.com">kadisdigitals@gmail.com</a>
+          </div>
+          <div class="foot-col">
+            <h5>Blog Categories</h5>
+            <a href="blog.html#post-event-equipment-rental-abuja">Event Equipment Rental in Abuja</a>
+            <a href="blog.html#post-audio-sound-system-rental">Audio & Sound System Rental</a>
+            <a href="blog.html#post-led-screen-projector-rental">LED Screen & Projector Rental</a>
+            <a href="blog.html#post-event-lighting-stage-production">Event Lighting & Stage Production</a>
+            <a href="blog.html#post-corporate-event-conference-solutions">Corporate Event & Conference Solutions</a>
+            <a href="blog.html#post-wedding-social-event-solutions">Wedding & Social Event Solutions</a>
+            <a href="blog.html#post-media-production-coverage">Media Production & Coverage</a>
+            <a href="blog.html#post-live-streaming-broadcasting">Live Streaming & Broadcasting</a>
+            <a href="blog.html#post-event-photography-videography">Event Photography & Videography</a>
+            <a href="blog.html#post-dj-equipment-entertainment-rentals">DJ Equipment & Entertainment Rentals</a>
+            <a href="blog.html#post-mc-compere-event-hosting">MC, Compere & Event Hosting</a>
+            <a href="blog.html#post-cctv-cameras-event-security">CCTV, Cameras & Event Security</a>
+            <a href="blog.html#post-power-backup-solutions-events">Power & Backup Solutions for Events</a>
+            <a href="blog.html#post-event-planning-management">Event Planning & Management</a>
+            <a href="blog.html#post-ict-digital-solutions-events">ICT & Digital Solutions for Events</a>
+            <a href="blog.html#post-kadis-events-rental-guides">KADIS Events & Rental Guides</a>
+          </div>
+          <div class="foot-col">
+            <h5>Blog Categories</h5>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));column-gap:24px;">
+              <a href="blog.html#post-general-event-equipment-rental-production">General Event Equipment Rental &amp;
+                Production</a>
+              <a href="blog.html#post-sound-audio-pa-systems">Sound, Audio &amp; PA Systems</a>
+              <a href="blog.html#post-event-stage-lighting">Event &amp; Stage Lighting</a>
+              <a href="blog.html#post-lighting-t-stands-crank-stands">Lighting, T-Stands &amp; Crank Stands</a>
+              <a href="blog.html#post-truss-rigging">Truss &amp; Rigging</a>
+              <a href="blog.html#post-led-screens-visual-displays">LED Screens &amp; Visual Displays</a>
+              <a href="blog.html#post-projectors-projection-systems">Projectors &amp; Projection Systems</a>
+              <a href="blog.html#post-haze-smoke-fog-special-effects">Haze, Smoke, Fog &amp; Special Effects</a>
+              <a href="blog.html#post-stage-platform-event-structures">Stage, Platform &amp; Event Structures</a>
+              <a href="blog.html#post-cameras-photography-equipment">Cameras &amp; Photography Equipment</a>
+              <a href="blog.html#post-event-photography-videography">Event Photography &amp; Videography</a>
+              <a href="blog.html#post-live-streaming-broadcasting">Live Streaming &amp; Broadcasting</a>
+              <a href="blog.html#post-media-video-production">Media &amp; Video Production</a>
+              <a href="blog.html#post-podcast-interview-audio-production">Podcast, Interview &amp; Audio Production</a>
+              <a href="blog.html#post-laptop-computer-printer-equipment">Laptop, Computer &amp; Printer Equipment</a>
+              <a href="blog.html#post-event-internet-networking">Event Internet &amp; Networking</a>
+              <a href="blog.html#post-conference-seminar-corporate-events">Conference, Seminar &amp; Corporate
+                Events</a>
+              <a href="blog.html#post-event-design-branding-displays">Event Design, Branding &amp; Displays</a>
+              <a href="blog.html#post-full-event-production">Full Event Production</a>
+              <a href="blog.html#post-event-equipment-maintenance-technical-services">Event Equipment Maintenance &amp;
+                Technical Services</a>
+              <a href="blog.html#post-event-equipment-production-packages">Event Equipment &amp; Production Packages</a>
+              <a href="blog.html#post-event-planning-coordination-management">Event Planning, Coordination &amp;
+                Management</a>
+              <a href="blog.html#post-event-crew-production-personnel">Event Crew &amp; Production Personnel</a>
+              <a href="blog.html#post-event-content-social-media-coverage">Event Content &amp; Social Media Coverage</a>
+              <a href="blog.html#post-event-recording-archiving">Event Recording &amp; Archiving</a>
+              <a href="blog.html#post-presentation-conference-technology">Presentation &amp; Conference Technology</a>
+              <a href="blog.html#post-hybrid-remote-participation">Hybrid &amp; Remote Participation</a>
+              <a href="blog.html#post-event-recording-audio">Event Recording Audio</a>
+              <a href="blog.html#post-event-power-infrastructure">Event Power &amp; Infrastructure</a>
+              <a href="blog.html#post-outdoor-event-technical-infrastructure">Outdoor Event Technical Infrastructure</a>
+              <a href="blog.html#post-event-safety-technical-compliance">Event Safety &amp; Technical Compliance</a>
+              <a href="blog.html#post-exhibition-trade-show-technology">Exhibition &amp; Trade Show Technology</a>
+              <a href="blog.html#post-awards-gala-special-events">Awards, Gala &amp; Special Events</a>
+              <a href="blog.html#post-government-institutional-events">Government &amp; Institutional Events</a>
+              <a href="blog.html#post-religious-event-technology-production">Religious Event Technology &amp;
+                Production</a>
+              <a href="blog.html#post-event-registration-audience-technology">Event Registration &amp; Audience
+                Technology</a>
+              <a href="blog.html#post-equipment-transport-event-logistics">Equipment Transport &amp; Event Logistics</a>
+              <a href="blog.html#post-pre-event-testing-rehearsal">Pre-Event Testing &amp; Rehearsal</a>
+              <a href="blog.html#post-specialized-visual-production">Specialized Visual Production</a>
+              <a href="blog.html#post-event-photography-add-on-services">Event Photography Add-On Services</a>
+              <a href="blog.html#post-digital-media-delivery-archiving">Digital Media Delivery &amp; Archiving</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="foot-bottom">
+          <span>© 2020–2026 KADIS.COM.NG · All Rights Reserved</span>
+          <div class="social-row">
+            <a href="https://web.facebook.com/kadisdigitals" aria-label="Facebook">f</a>
+            <a href="https://www.instagram.com/kadisdigitals" aria-label="Instagram">ig</a>
+            <a href="https://www.youtube.com/@kadisdigitals" aria-label="YouTube">yt</a>
+            <a href="https://www.tiktok.com/@kadisdigitals" aria-label="TikTok">tt</a>
+          </div>
+          <span>Powered by E-Franky Global Services Limited</span>
+        </div>
+      </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/2348061379390" aria-label="Chat on WhatsApp">💬</a>
+
+  <script>
+    // Submit the Join form via fetch to Formspree (AJAX), so we can show the
+    // same in-page success banner instead of relying on a full-page redirect.
+    const joinForm = document.getElementById('joinForm');
+    const joinSubmit = document.getElementById('joinSubmit');
+
+    function showSuccessBanner() {
+      const banner = document.createElement('div');
+      banner.className = 'success-banner';
+      banner.innerHTML = '<div class="box"><span>✅</span><span><b>Application received.</b> Thank you — our Event Media team will reach out if there\'s a fit.</span></div>';
+      const hero = document.querySelector('.page-hero');
+      hero.parentNode.insertBefore(banner, hero.nextSibling);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    joinForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      joinSubmit.disabled = true;
+      joinSubmit.textContent = 'Sending…';
+
+      try {
+        const response = await fetch(joinForm.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(joinForm)
+        });
+
+        if (response.ok) {
+          joinForm.reset();
+          joinForm.style.display = 'none';
+          showSuccessBanner();
+        } else {
+          throw new Error('Formspree responded with an error');
+        }
+      } catch (err) {
+        console.error('[KADIS Join Our Team] Submission failed:', err);
+        joinSubmit.disabled = false;
+        joinSubmit.textContent = 'Submit Application →';
+        alert('Something went wrong sending your application. Please try again or reach us directly on WhatsApp.');
+      }
+    });
+
+    document.querySelectorAll('a[href*="wa.me"], a[href*="instagram.com"], a[href*="facebook.com"], a[href*="tiktok.com"], a[href*="youtube.com"]').forEach(function (link) {
+      link.setAttribute('target', '_blank');
+      link.setAttribute('rel', 'noopener');
+    });
+  </script>
+</body>
+
+</html>

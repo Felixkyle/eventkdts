@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Blog Admin | KADIS</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg-2:#131519;--bg-3:#1A1D22;--bg-4:#20232A;--ink:#EDEEEC;--ink-dim:#9A9FA8;--ink-dimmer:#5C616A;--line:rgba(255,255,255,.07);--line-b:rgba(255,255,255,.13);--amber:#D9772E;--amber-soft:#E8A15E;--moss:#A9B84C;--wine:#C24D5C}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:rgb(46,45,44);color:var(--ink);font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Sora',sans-serif;letter-spacing:-.02em}
+button{font-family:inherit;cursor:pointer}
+[hidden]{display:none!important}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.bar{background:var(--bg-2);border-bottom:1px solid var(--line);padding:14px 20px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.bar b{font-family:'Sora';font-size:17px}
+.bar span{font-size:13px;color:var(--ink-dim)}
+.card{background:var(--bg-2);border:1px solid var(--line-b);border-radius:16px;padding:26px;margin:24px 0}
+.narrow{max-width:400px;margin:12vh auto}
+label{display:block;font:700 12px 'Space Mono';color:var(--amber-soft);margin:16px 0 6px}
+input,select{width:100%;background:var(--bg-3);border:1px solid var(--line-b);color:var(--ink);border-radius:10px;padding:11px 13px;font:500 14px 'Manrope'}
+input:focus,select:focus,[contenteditable]:focus{outline:2px solid var(--amber);outline-offset:1px}
+#title{font:800 24px 'Sora'}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+.btn{background:var(--amber);color:#0B0C0F;font-weight:700;font-size:13.5px;padding:11px 20px;border-radius:10px;border:none}
+.btn:hover{background:var(--amber-soft)}
+.btn2{background:var(--bg-4);color:var(--ink);font-weight:700;font-size:13px;padding:9px 15px;border-radius:10px;border:1px solid var(--line-b)}
+.btn2:hover{border-color:var(--amber);color:var(--amber-soft)}
+.tabs{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.tabs .btn2.on{border-color:var(--amber);color:var(--amber-soft)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;background:var(--bg-3);border:1px solid var(--line-b);border-radius:10px;padding:8px}
+.chips input{border:none;background:transparent;flex:1;min-width:140px;padding:5px}
+.chip{background:rgba(217,119,46,.14);border:1px solid rgba(217,119,46,.3);color:var(--amber-soft);border-radius:100px;padding:4px 6px 4px 12px;font-size:12.5px;font-weight:600}
+.chip button{background:none;border:none;color:inherit;font-size:15px;padding:0 6px}
+/* live page preview */
+.page{background:rgb(46,45,44);border:1px solid var(--line-b);border-radius:20px;padding:22px;margin-top:6px}
+.cover{aspect-ratio:4/3;max-height:340px;width:100%;border:1px dashed var(--line-b);border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--ink-dim);font-size:13px;cursor:pointer;margin-bottom:18px;background:var(--bg-3)}
+.cover img{width:100%;height:100%;object-fit:cover}
+.tb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--bg-3);border:1px solid var(--line-b);border-radius:12px;padding:8px;margin-bottom:14px;position:sticky;top:0;z-index:5}
+.tb button{background:var(--bg-4);color:var(--ink);border:1px solid var(--line);border-radius:8px;min-width:34px;height:32px;font-weight:700;font-size:12.5px;padding:0 9px}
+.tb button:hover{border-color:var(--amber);color:var(--amber-soft)}
+.tb .sep{width:1px;height:22px;background:var(--line-b)}
+.tb label{margin:0;display:flex;align-items:center;gap:4px;font-size:12px;color:var(--ink-dim)}
+.tb input[type=color]{width:30px;height:30px;padding:2px;border-radius:8px}
+.ed{min-height:260px;padding:6px 2px}
+[contenteditable]:empty:before{content:attr(data-ph);color:var(--ink-dimmer)}
+/* same typography as blog.html */
+.rt h2{font:800 26px/1.18 'Sora';margin:0 0 14px;color:var(--ink)}
+.rt h3{font:700 20px/1.25 'Sora';margin:22px 0 10px;color:var(--ink)}
+.rt p{font-size:14.5px;color:var(--ink-dim);line-height:1.75;margin-bottom:14px}
+.rt b{color:var(--ink)}
+.rt blockquote{border-left:3px solid var(--amber);padding:6px 0 6px 18px;margin:18px 0;font-size:16px;font-style:italic;color:var(--ink)}
+.rt ul,.rt ol{margin:0 0 14px 22px;color:var(--ink-dim);font-size:14.5px;line-height:1.75}
+.rt a{color:var(--amber-soft);text-decoration:underline}
+.ctarow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px;padding-top:16px;border-top:1px solid var(--line)}
+#ctal{font-size:13px;font-weight:700;color:var(--amber-soft);min-width:160px;padding:6px 8px;border-radius:6px}
+.ctarow input{flex:1;min-width:200px}
+.actions{display:flex;gap:12px;align-items:center;margin-top:22px;flex-wrap:wrap}
+#msg{font-size:13px;color:var(--moss)}#msg.err{color:var(--wine)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+td,th{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font:700 11px 'Space Mono';color:var(--ink-dimmer)}
+.tag{font:700 10px 'Space Mono';padding:3px 9px;border-radius:100px;background:rgba(169,184,76,.15);color:var(--moss)}
+.tag.d{background:rgba(255,255,255,.07);color:var(--ink-dim)}
+td .btn2{padding:6px 11px;margin-right:6px}
+</style>
+</head>
+<body>
+
+<div id="login" class="card narrow">
+  <h1 style="font-size:22px">Blog admin</h1>
+  <label>Email</label><input id="em" type="email" autocomplete="username">
+  <label>Password</label><input id="pw" type="password" autocomplete="current-password">
+  <div class="actions"><button class="btn" id="go">Log in</button><span id="lmsg" class="err" style="font-size:13px"></span></div>
+</div>
+
+<div id="app" hidden>
+  <div class="bar"><b>KADIS Blog CMS</b><span id="who"></span><button class="btn2" id="out">Log out</button></div>
+  <div class="wrap">
+    <div class="tabs">
+      <button class="btn2 on" data-v="list">Posts</button>
+      <button class="btn2" data-v="bloggers" id="tabB" hidden>Bloggers</button>
+      <button class="btn" id="new">+ New post</button>
+    </div>
+    <section id="v-list" class="card"></section>
+    <section id="v-bloggers" class="card" hidden></section>
+
+    <section id="v-edit" class="card" hidden>
+      <label style="margin-top:0">Title</label><input id="title" placeholder="Post title">
+      <div class="row">
+        <div><label>Category</label><select id="cat"></select></div>
+        <div><label>Status</label><select id="status"><option value="true">Published</option><option value="false">Draft</option></select></div>
+      </div>
+      <label>Tags</label>
+      <div class="chips" id="tags"><input id="tagin" placeholder="Type a tag, press Enter"></div>
+
+      <label>Page preview — type directly below</label>
+      <div class="page">
+        <div class="cover" id="cover"><img id="coverimg" hidden alt=""><span id="coverph">Click to upload cover image</span></div>
+        <input type="file" id="file" accept="image/*" hidden>
+        <div class="tb" id="tb">
+          <button data-c="bold"><b>B</b></button><button data-c="italic"><i>I</i></button><button data-c="underline"><u>U</u></button><button data-c="strikeThrough"><s>S</s></button>
+          <span class="sep"></span>
+          <label title="Text colour">A<input type="color" id="fc" value="#E8A15E"></label>
+          <label title="Highlight">▮<input type="color" id="hc" value="#D9772E"></label>
+          <span class="sep"></span>
+          <button data-c="h2">H2</button><button data-c="h3">H3</button><button data-c="quote">❝</button>
+          <button data-c="insertUnorderedList">• List</button><button data-c="insertOrderedList">1. List</button>
+          <button data-c="link">Link</button><button data-c="clear">Clear</button>
+          <span class="sep"></span>
+          <button data-c="faq">+ FAQ</button>
+        </div>
+        <div id="body" class="rt ed" contenteditable="true" data-ph="Write your post here…"></div>
+        <div class="ctarow">
+          <span id="ctal" contenteditable="true" data-ph="Button text →"></span>
+          <input id="ctah" placeholder="Button link, e.g. https://wa.me/2348061379390?text=Hi">
+        </div>
+      </div>
+      <div class="actions"><button class="btn" id="save">Save post</button><button class="btn2" id="cancel">Cancel</button><span id="msg"></span></div>
+    </section>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL='https://rsygjttdwptbxsgfievo.supabase.co', SUPABASE_KEY='sb_publishable_o3TGYm2cKC0D_fIWy6T7VA_SjpiYBIq';
+const CATS=['Event Equipment Rental in Abuja','Audio & Sound System Rental','LED Screen & Projector Rental','Event Lighting & Stage Production','Corporate Event & Conference Solutions','Wedding & Social Event Solutions','Media Production & Coverage','Live Streaming & Broadcasting','Event Photography & Videography','DJ Equipment & Entertainment Rentals','CCTV, Cameras & Event Security','Power & Backup Solutions for Events','Event Planning & Management','ICT & Digital Solutions for Events','KADIS Events, Media & Rental Guides','MC, Compere & Event Hosting'];
+const $=id=>document.getElementById(id), sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const css=v=>String(v).replace(/[^#\w(),.% -]/g,'');
+let me,profile,editId=null,tags=[],cover=null,savedRange=null;
+
+/* ---- HTML cleaner: strips Word/Docs junk down to supported tags ---- */
+const MAP={B:'b',STRONG:'b',I:'i',EM:'i',U:'u',S:'s',STRIKE:'s',DEL:'s',H1:'h2',H2:'h2',H3:'h3',H4:'h3',H5:'h3',H6:'h3',BLOCKQUOTE:'blockquote',UL:'ul',OL:'ol',LI:'li',P:'p',DIV:'p'};
+function clean(html){
+  const d=document.createElement('div');d.innerHTML=html;
+  d.querySelectorAll('script,style,iframe,object,head,meta,link,svg,img,table').forEach(e=>e.remove());
+  const walk=n=>{let o='';n.childNodes.forEach(c=>{
+    if(c.nodeType===3){o+=esc(c.nodeValue);return}
+    if(c.nodeType!==1)return;
+    const tn=c.tagName,inner=walk(c);
+    if(tn==='BR'){o+='<br>';return}
+    if(tn==='A'){const h=c.getAttribute('href')||'';o+=/^(https?:|mailto:|tel:)/i.test(h)?`<a href="${esc(h)}" target="_blank" rel="noopener">${inner}</a>`:inner;return}
+    if((tn==='B'||tn==='STRONG')&&c.style.fontWeight==='normal'){o+=inner;return}
+    if(MAP[tn]){if(MAP[tn]==='p'&&!inner.replace(/<br>|\s|&nbsp;/g,'')){return}o+=`<${MAP[tn]}>${inner}</${MAP[tn]}>`;return}
+    if(tn==='SPAN'||tn==='FONT'){
+      let r=inner;const s=c.style,fw=s.fontWeight;
+      if(fw==='bold'||fw>=600)r=`<b>${r}</b>`;
+      if(s.fontStyle==='italic')r=`<i>${r}</i>`;
+      if((s.textDecorationLine||s.textDecoration||'').includes('underline'))r=`<u>${r}</u>`;
+      if((s.textDecorationLine||s.textDecoration||'').includes('line-through'))r=`<s>${r}</s>`;
+      let st='';const col=s.color||c.getAttribute('color'),bg=s.backgroundColor;
+      if(col&&!/^(rgb\(0, ?0, ?0\)|black|windowtext)$/i.test(col))st+=`color:${css(col)};`;
+      if(bg&&!/transparent|rgba\(0, ?0, ?0, ?0\)|^white$|rgb\(255, ?255, ?255\)/i.test(bg))st+=`background-color:${css(bg)};`;
+      o+=st?`<span style="${st}">${r}</span>`:r;return}
+    o+=inner});return o};
+  return walk(d).replace(/(<br>\s*){3,}/g,'<br><br>')
+}
+
+/* ---- auth ---- */
+async function boot(){
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){$('login').hidden=false;$('app').hidden=true;return}
+  me=session.user;
+  const {data,error}=await sb.from('profiles').select('*').eq('id',me.id).single();
+  if(error||!data){$('lmsg').textContent='No profile found for this account.';await sb.auth.signOut();return}
+  profile=data;$('login').hidden=true;$('app').hidden=false;
+  $('who').textContent=`${profile.email} · ${profile.role}`;$('tabB').hidden=profile.role!=='admin';
+  show('list');
+}
+$('go').onclick=async()=>{
+  $('lmsg').textContent='';
+  const {error}=await sb.auth.signInWithPassword({email:$('em').value.trim(),password:$('pw').value});
+  if(error)$('lmsg').textContent='Login failed: '+error.message;else boot();
+};
+$('pw').onkeydown=e=>{if(e.key==='Enter')$('go').click()};
+$('out').onclick=async()=>{await sb.auth.signOut();location.reload()};
+
+/* ---- views ---- */
+function show(v){
+  ['list','bloggers','edit'].forEach(x=>$('v-'+x).hidden=x!==v);
+  document.querySelectorAll('.tabs [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  if(v==='list')loadList();if(v==='bloggers')loadBloggers();
+}
+document.querySelectorAll('.tabs [data-v]').forEach(b=>b.onclick=()=>show(b.dataset.v));
+const fmt=d=>new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+
+async function loadList(){
+  const box=$('v-list');box.innerHTML='Loading…';
+  let q=sb.from('posts').select('id,title,cat,published,created_at,author_id').order('created_at',{ascending:false});
+  if(profile.role!=='admin')q=q.eq('author_id',me.id);
+  const [{data,error},{data:pr}]=await Promise.all([q,sb.from('profiles').select('id,email')]);
+  if(error){box.textContent='Could not load posts: '+error.message;return}
+  const who=Object.fromEntries((pr||[]).map(p=>[p.id,p.email]));
+  if(!data.length){box.innerHTML='<p style="color:var(--ink-dim)">No posts yet. Click “+ New post” to write your first.</p>';return}
+  const adm=profile.role==='admin';
+  box.innerHTML=`<table><tr><th>TITLE</th><th>CATEGORY</th>${adm?'<th>AUTHOR</th>':''}<th>STATUS</th><th>DATE</th><th></th></tr>`+
+   data.map(p=>`<tr><td><b>${esc(p.title)}</b></td><td>${esc(p.cat)}</td>${adm?`<td>${esc(who[p.author_id]||'')}</td>`:''}<td><span class="tag ${p.published?'':'d'}">${p.published?'LIVE':'DRAFT'}</span></td><td>${fmt(p.created_at)}</td><td style="white-space:nowrap"><button class="btn2" data-e="${p.id}">Edit</button><button class="btn2" data-x="${p.id}">Delete</button></td></tr>`).join('')+'</table>';
+}
+$('v-list').onclick=async e=>{
+  const ed=e.target.dataset.e,del=e.target.dataset.x;
+  if(ed)openEditor(ed);
+  if(del&&confirm('Delete this post permanently?')){const {error}=await sb.from('posts').delete().eq('id',del);if(error)alert(error.message);loadList()}
+};
+async function loadBloggers(){
+  const box=$('v-bloggers');box.innerHTML='Loading…';
+  const [{data:pr,error},{data:ps}]=await Promise.all([sb.from('profiles').select('*').order('created_at'),sb.from('posts').select('author_id')]);
+  if(error){box.textContent=error.message;return}
+  const n={};(ps||[]).forEach(p=>n[p.author_id]=(n[p.author_id]||0)+1);
+  box.innerHTML='<table><tr><th>EMAIL</th><th>ROLE</th><th>POSTS</th><th>JOINED</th></tr>'+pr.map(p=>`<tr><td>${esc(p.email)}</td><td><span class="tag ${p.role==='admin'?'':'d'}">${p.role.toUpperCase()}</span></td><td>${n[p.id]||0}</td><td>${fmt(p.created_at)}</td></tr>`).join('')+'</table><p style="color:var(--ink-dim);font-size:13px;margin-top:16px">Add a blogger in Supabase → Authentication → Users → Add user. They appear here automatically as “blogger”.</p>';
+}
+
+/* ---- editor ---- */
+$('cat').innerHTML=CATS.map(c=>`<option>${esc(c)}</option>`).join('');
+function drawTags(){
+  $('tags').querySelectorAll('.chip').forEach(c=>c.remove());
+  tags.forEach((t,i)=>{const s=document.createElement('span');s.className='chip';s.innerHTML=`${esc(t)}<button data-i="${i}" aria-label="Remove">×</button>`;$('tags').insertBefore(s,$('tagin'))});
+}
+$('tags').onclick=e=>{if(e.target.dataset.i!==undefined){tags.splice(+e.target.dataset.i,1);drawTags()}else $('tagin').focus()};
+$('tagin').onkeydown=e=>{
+  const v=$('tagin').value.trim().replace(/,$/,'');
+  if((e.key==='Enter'||e.key===',')&&v){e.preventDefault();if(!tags.includes(v))tags.push(v);$('tagin').value='';drawTags()}
+  else if(e.key==='Backspace'&&!$('tagin').value){tags.pop();drawTags()}
+};
+function setCover(u){cover=u||null;$('coverimg').hidden=!cover;$('coverph').hidden=!!cover;if(cover)$('coverimg').src=cover}
+$('cover').onclick=()=>$('file').click();
+$('file').onchange=async()=>{
+  const f=$('file').files[0];if(!f)return;
+  if(!f.type.startsWith('image/')||f.size>5*1024*1024){flash('Choose an image under 5 MB.',1);return}
+  flash('Uploading image…');
+  const path=`${me.id}/${Date.now()}-${f.name.replace(/[^\w.-]/g,'_')}`;
+  const {error}=await sb.storage.from('post-images').upload(path,f,{contentType:f.type});
+  if(error){flash('Upload failed: '+error.message,1);return}
+  setCover(sb.storage.from('post-images').getPublicUrl(path).data.publicUrl);flash('Image added.');$('file').value='';
+};
+function flash(t,err){$('msg').textContent=t;$('msg').className=err?'err':''}
+
+async function openEditor(id){
+  editId=id||null;tags=[];drawTags();setCover(null);flash('');
+  $('title').value='';$('cat').selectedIndex=0;$('status').value='true';$('body').innerHTML='';$('ctal').textContent='';$('ctah').value='';
+  show('edit');
+  if(id){
+    const {data,error}=await sb.from('posts').select('*').eq('id',id).single();
+    if(error){flash(error.message,1);return}
+    $('title').value=data.title;$('cat').value=data.cat;
+    if($('cat').value!==data.cat){$('cat').add(new Option(data.cat,data.cat));$('cat').value=data.cat}
+    $('status').value=String(data.published);tags=data.tags||[];drawTags();setCover(data.img_url);
+    $('body').innerHTML=clean(data.body||'');$('ctal').textContent=data.cta_label||'';$('ctah').value=data.cta_href||'';
+  }
+}
+$('new').onclick=()=>openEditor();
+$('cancel').onclick=()=>show('list');
+
+/* toolbar */
+document.addEventListener('selectionchange',()=>{const s=getSelection();if(s.rangeCount&&$('body').contains(s.anchorNode))savedRange=s.getRangeAt(0).cloneRange()});
+function restore(){$('body').focus();if(savedRange){const s=getSelection();s.removeAllRanges();s.addRange(savedRange)}}
+function block(tag){const cur=(document.queryCommandValue('formatBlock')||'').toLowerCase();document.execCommand('formatBlock',false,cur===tag?'p':tag)}
+function colour(cmd,v){document.execCommand('styleWithCSS',false,true);document.execCommand(cmd,false,v);document.execCommand('styleWithCSS',false,false)}
+$('tb').onmousedown=e=>{if(e.target.tagName!=='INPUT')e.preventDefault()};
+$('tb').onclick=e=>{
+  const c=e.target.closest('button')?.dataset.c;if(!c)return;restore();
+  if(c==='h2'||c==='h3')block(c);
+  else if(c==='quote')block('blockquote');
+  else if(c==='link'){const u=prompt('Link address (https://…)');if(u&&/^(https?:|mailto:|tel:)/i.test(u))document.execCommand('createLink',false,u)}
+  else if(c==='clear'){document.execCommand('removeFormat');document.execCommand('formatBlock',false,'p')}
+  else if(c==='faq')document.execCommand('insertHTML',false,'<p><b>Q: Type the question here?</b></p><p>Type the answer here.</p>');
+  else document.execCommand(c);
+};
+$('fc').oninput=()=>{restore();colour('foreColor',$('fc').value)};
+$('hc').oninput=()=>{restore();colour('hiliteColor',$('hc').value)};
+$('body').addEventListener('paste',e=>{
+  e.preventDefault();const h=e.clipboardData.getData('text/html'),t=e.clipboardData.getData('text/plain');
+  document.execCommand('insertHTML',false,h?clean(h):esc(t).replace(/\n/g,'<br>'));
+});
+$('ctal').addEventListener('paste',e=>{e.preventDefault();document.execCommand('insertText',false,e.clipboardData.getData('text/plain').replace(/\s+/g,' '))});
+$('ctal').onkeydown=e=>{if(e.key==='Enter')e.preventDefault()};
+
+/* save */
+const slugify=s=>s.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g,'').replace(/&/g,' and ').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,70)||'post';
+$('save').onclick=async()=>{
+  const title=$('title').value.trim(),html=clean($('body').innerHTML).trim(),text=$('body').innerText.trim();
+  if(!title){flash('Add a title first.',1);return}
+  if(!text){flash('Write something in the post body.',1);return}
+  const href=$('ctah').value.trim();
+  if(href&&!/^(https?:\/\/|mailto:|tel:)/i.test(href)){flash('Button link must start with https://',1);return}
+  const row={title,cat:$('cat').value,published:$('status').value==='true',tags,body:html,img_url:cover,
+    read_mins:Math.max(1,Math.ceil(text.split(/\s+/).length/200)),
+    cta_label:$('ctal').textContent.trim()||null,cta_href:href||null};
+  $('save').disabled=true;flash('Saving…');
+  let error;
+  if(editId)({error}=await sb.from('posts').update(row).eq('id',editId));
+  else ({error}=await sb.from('posts').insert({...row,author_id:me.id,slug:slugify(title)+'-'+Math.random().toString(36).slice(2,6)}));
+  $('save').disabled=false;
+  if(error)flash('Could not save: '+error.message,1);else show('list');
+};
+boot();
+</script>
+</body>
+</html>

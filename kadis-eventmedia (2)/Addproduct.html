@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Shop Admin | KADIS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0B0C0F; --bg-2: #131519; --bg-3: #1A1D22; --bg-4: #20232A;
+      --ink: #EDEEEC; --ink-dim: #9A9FA8; --ink-dimmer: #5C616A;
+      --line: rgba(255, 255, 255, .07); --line-bright: rgba(255, 255, 255, .13);
+      --amber: #D9772E; --amber-soft: #E8A15E; --moss: #A9B84C; --wine: #C24D5C;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: rgb(46, 45, 44); color: var(--ink); font-family: 'Manrope', sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+    h1, h2, h3, h4 { font-family: 'Sora', sans-serif; letter-spacing: -.02em; }
+    button, input, select, textarea { font-family: inherit; }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid var(--amber-soft); outline-offset: 2px; }
+    .hidden { display: none !important; }
+
+    .field { width: 100%; background: var(--bg-2); border: 1px solid var(--line-bright); color: var(--ink); border-radius: 10px; padding: 11px 13px; font-size: 14px; transition: border-color .2s; }
+    .field:focus { outline: none; border-color: var(--amber); }
+    .field::placeholder { color: var(--ink-dimmer); }
+    select.field option { background: var(--bg-2); }
+    textarea.field { resize: vertical; min-height: 90px; }
+    label.lbl { display: block; font-size: 12px; font-weight: 700; color: var(--ink-dim); margin-bottom: 6px; }
+
+    .btn { border: none; border-radius: 10px; font-weight: 700; font-size: 13.5px; padding: 11px 18px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all .2s; }
+    .btn-primary { background: var(--amber); color: #0B0C0F; }
+    .btn-primary:hover { background: var(--amber-soft); }
+    .btn-ghost { background: transparent; border: 1px solid var(--line-bright); color: var(--ink); }
+    .btn-ghost:hover { border-color: var(--amber); }
+    .btn-danger { background: transparent; border: 1px solid rgba(194, 77, 92, .5); color: #e9a0a9; }
+    .btn-danger:hover { background: rgba(194, 77, 92, .15); }
+    .btn[disabled] { opacity: .5; cursor: not-allowed; }
+    .btn-sm { padding: 7px 12px; font-size: 12.5px; }
+
+    /* Login */
+    .login-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .login-card { width: 400px; max-width: 100%; background: var(--bg-2); border: 1px solid var(--line-bright); border-radius: 20px; padding: 30px; }
+    .login-card h1 { font-size: 22px; margin-bottom: 6px; }
+    .login-card p { color: var(--ink-dim); font-size: 13.5px; margin-bottom: 22px; line-height: 1.6; }
+    .login-card .row { margin-bottom: 14px; }
+    .msg { font-size: 13px; border-radius: 10px; padding: 10px 12px; margin-bottom: 14px; background: rgba(194, 77, 92, .12); border: 1px solid rgba(194, 77, 92, .35); color: #e9a0a9; line-height: 1.5; }
+    .msg.ok { background: rgba(169, 184, 76, .1); border-color: rgba(169, 184, 76, .35); color: var(--moss); }
+
+    /* App */
+    .bar { background: rgba(11, 12, 15, .9); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); }
+    .bar-in { max-width: 1100px; margin: 0 auto; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .bar h2 { font-size: 17px; }
+    .bar small { color: var(--ink-dimmer); font-size: 12px; display: block; margin-top: 2px; }
+    .bar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    main { max-width: 1100px; margin: 0 auto; padding: 22px 20px 80px; }
+
+    .tools { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .tools .field { width: auto; flex: 1; min-width: 180px; }
+    .tools select.field { flex: 0 0 auto; min-width: 200px; }
+
+    .stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+    .stat { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 16px; font-size: 12.5px; color: var(--ink-dim); }
+    .stat b { display: block; font-family: 'Sora'; font-size: 18px; color: var(--ink); }
+
+    .list { display: grid; gap: 10px; }
+    .row-card { display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: center; background: var(--bg-2); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+    .row-card.off { opacity: .55; }
+    .row-card img { width: 64px; height: 64px; border-radius: 10px; object-fit: cover; background: var(--bg-4); }
+    .row-card h4 { font-size: 14.5px; margin-bottom: 4px; }
+    .meta { font-size: 12px; color: var(--ink-dim); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .pill { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px; border: 1px solid var(--line-bright); color: var(--ink-dim); background: transparent; cursor: pointer; transition: all .2s; }
+    .pill.on { background: rgba(169, 184, 76, .12); border-color: rgba(169, 184, 76, .4); color: var(--moss); }
+    .pill.warn { background: rgba(194, 77, 92, .12); border-color: rgba(194, 77, 92, .4); color: #e9a0a9; }
+    .pill:hover { border-color: var(--amber); }
+    .row-actions { display: flex; gap: 8px; }
+    @media (max-width: 640px) {
+      .row-card { grid-template-columns: 56px 1fr; }
+      .row-card img { width: 56px; height: 56px; }
+      .row-actions { grid-column: 1 / -1; }
+      .row-actions .btn { flex: 1; }
+    }
+    .empty { text-align: center; padding: 50px 20px; border: 1px dashed var(--line-bright); border-radius: 16px; color: var(--ink-dim); font-size: 14px; line-height: 1.7; }
+
+    /* Modal form */
+    .modal { position: fixed; inset: 0; background: rgba(0, 0, 0, .65); z-index: 50; display: flex; align-items: flex-start; justify-content: center; padding: 24px 16px; overflow-y: auto; }
+    .sheet { background: var(--bg-2); border: 1px solid var(--line-bright); border-radius: 20px; width: 640px; max-width: 100%; padding: 24px; }
+    .sheet h3 { font-size: 19px; margin-bottom: 18px; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 560px) { .grid2 { grid-template-columns: 1fr; } }
+    .fr { margin-bottom: 14px; }
+    .img-box { display: flex; gap: 14px; align-items: center; }
+    .img-box img { width: 96px; height: 96px; border-radius: 12px; object-fit: cover; background: var(--bg-4); border: 1px solid var(--line); flex-shrink: 0; }
+    .hint { font-size: 11.5px; color: var(--ink-dimmer); margin-top: 5px; line-height: 1.5; }
+    .checks { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 18px; }
+    .checks label { display: flex; align-items: center; gap: 8px; font-size: 13.5px; cursor: pointer; }
+    .checks input { width: 17px; height: 17px; accent-color: var(--amber); }
+    .sheet-foot { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; border-top: 1px solid var(--line); padding-top: 16px; }
+
+    .toast { position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 30px); background: var(--bg-3); border: 1px solid rgba(217, 119, 46, .4); padding: 12px 18px; border-radius: 12px; font-size: 13px; font-weight: 600; opacity: 0; visibility: hidden; transition: all .3s; z-index: 80; max-width: calc(100% - 32px); }
+    .toast.show { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+    .toast.err { border-color: rgba(194, 77, 92, .6); }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-wrap" id="loginView">
+    <form class="login-card" id="loginForm">
+      <h1>Shop admin</h1>
+      <p>Sign in to add and manage the products on your shop page.</p>
+      <div class="msg hidden" id="loginMsg"></div>
+      <div class="row"><label class="lbl" for="email">Email</label><input class="field" id="email" type="email" autocomplete="username" required></div>
+      <div class="row"><label class="lbl" for="password">Password</label><input class="field" id="password" type="password" autocomplete="current-password" required></div>
+      <button class="btn btn-primary" style="width:100%;margin-top:6px;" id="loginBtn" type="submit">Sign in</button>
+    </form>
+  </div>
+
+  <!-- APP -->
+  <div id="appView" class="hidden">
+    <div class="bar">
+      <div class="bar-in">
+        <div><h2>Shop products</h2><small id="who"></small></div>
+        <div class="bar-actions">
+          <a class="btn btn-ghost btn-sm" href="shop.html" target="_blank" rel="noopener">View shop</a>
+          <button class="btn btn-primary btn-sm" id="newBtn" type="button">+ New product</button>
+          <button class="btn btn-ghost btn-sm" id="logoutBtn" type="button">Sign out</button>
+        </div>
+      </div>
+    </div>
+
+    <main>
+      <div class="stats" id="stats"></div>
+      <div class="tools">
+        <input class="field" id="q" type="search" placeholder="Search products" aria-label="Search products">
+        <select class="field" id="catFilter" aria-label="Filter by category"></select>
+      </div>
+      <div class="list" id="list"></div>
+    </main>
+  </div>
+
+  <!-- PRODUCT FORM -->
+  <div class="modal hidden" id="modal">
+    <form class="sheet" id="form">
+      <h3 id="formTitle">New product</h3>
+      <div class="msg hidden" id="formMsg"></div>
+
+      <div class="fr"><label class="lbl" for="f_name">Product name *</label><input class="field" id="f_name" required maxlength="140"></div>
+      <div class="fr"><label class="lbl" for="f_cat">Category *</label><select class="field" id="f_cat" required></select></div>
+      <div class="fr"><label class="lbl" for="f_desc">Description</label><textarea class="field" id="f_desc" placeholder="What it is, what's included, key specs"></textarea></div>
+
+      <div class="grid2">
+        <div class="fr"><label class="lbl" for="f_price">Price (₦)</label><input class="field" id="f_price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Leave empty for 'Price on request'"></div>
+        <div class="fr"><label class="lbl" for="f_compare">Old price (₦, optional)</label><input class="field" id="f_compare" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Shown struck through"></div>
+      </div>
+
+      <div class="fr">
+        <label class="lbl">Photo</label>
+        <div class="img-box">
+          <img id="f_preview" alt="">
+          <div style="flex:1;min-width:0;">
+            <input class="field" id="f_file" type="file" accept="image/*">
+            <div class="hint">Pick a photo from your phone or computer. It is resized automatically before upload.</div>
+            <input class="field" id="f_url" type="url" placeholder="or paste an image link" style="margin-top:8px;">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="fr"><label class="lbl" for="f_sort">Display order</label><input class="field" id="f_sort" type="number" step="1" value="0"><div class="hint">Lower numbers show first.</div></div>
+      </div>
+
+      <div class="checks">
+        <label><input type="checkbox" id="f_stock" checked> In stock</label>
+        <label><input type="checkbox" id="f_feat"> Featured</label>
+        <label><input type="checkbox" id="f_active" checked> Show on shop</label>
+      </div>
+
+      <div class="sheet-foot">
+        <button class="btn btn-ghost" type="button" id="cancelBtn">Cancel</button>
+        <button class="btn btn-primary" type="submit" id="saveBtn">Save product</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    /* ====== SETTINGS: use the SAME URL and anon key as in shop.html ====== */
+    const CONFIG = {
+      SUPABASE_URL: 'https://xjaieymgmhberbkbucrh.supabase.co',
+      SUPABASE_ANON_KEY: 'sb_publishable_r86lqj5QiI3qTgXicj7Ryg_AWkXZXu6',
+      TABLE: 'shop_products',
+      BUCKET: 'product-images'
+    };
+
+    const CATEGORIES = [
+      { slug: 'general-event-equipment-rental-production', name: 'General Event Equipment Rental & Production' },
+      { slug: 'sound-audio-pa-systems', name: 'Sound, Audio & PA Systems' },
+      { slug: 'event-stage-lighting', name: 'Event & Stage Lighting' },
+      { slug: 'lighting-t-stands-crank-stands', name: 'Lighting, T-Stands & Crank Stands' },
+      { slug: 'truss-rigging', name: 'Truss & Rigging' },
+      { slug: 'led-screens-visual-displays', name: 'LED Screens & Visual Displays' },
+      { slug: 'projectors-projection-systems', name: 'Projectors & Projection Systems' },
+      { slug: 'haze-smoke-fog-special-effects', name: 'Haze, Smoke, Fog & Special Effects' },
+      { slug: 'stage-platform-event-structures', name: 'Stage, Platform & Event Structures' },
+      { slug: 'cameras-photography-equipment', name: 'Cameras & Photography Equipment' },
+      { slug: 'event-photography-videography', name: 'Event Photography & Videography' },
+      { slug: 'live-streaming-broadcasting', name: 'Live Streaming & Broadcasting' },
+      { slug: 'media-video-production', name: 'Media & Video Production' },
+      { slug: 'podcast-interview-audio-production', name: 'Podcast, Interview & Audio Production' },
+      { slug: 'laptop-computer-printer-equipment', name: 'Laptop, Computer & Printer Equipment' },
+      { slug: 'event-internet-networking', name: 'Event Internet & Networking' },
+      { slug: 'conference-seminar-corporate-events', name: 'Conference, Seminar & Corporate Events' },
+      { slug: 'event-design-branding-displays', name: 'Event Design, Branding & Displays' },
+      { slug: 'full-event-production', name: 'Full Event Production' },
+      { slug: 'event-equipment-maintenance-technical-services', name: 'Event Equipment Maintenance & Technical Services' },
+      { slug: 'event-equipment-production-packages', name: 'Event Equipment & Production Packages' },
+      { slug: 'event-planning-coordination-management', name: 'Event Planning, Coordination & Management' },
+      { slug: 'event-crew-production-personnel', name: 'Event Crew & Production Personnel' },
+      { slug: 'event-content-social-media-coverage', name: 'Event Content & Social Media Coverage' },
+      { slug: 'event-recording-archiving', name: 'Event Recording & Archiving' },
+      { slug: 'presentation-conference-technology', name: 'Presentation & Conference Technology' },
+      { slug: 'hybrid-remote-participation', name: 'Hybrid & Remote Participation' },
+      { slug: 'event-recording-audio', name: 'Event Recording Audio' },
+      { slug: 'event-power-infrastructure', name: 'Event Power & Infrastructure' },
+      { slug: 'outdoor-event-technical-infrastructure', name: 'Outdoor Event Technical Infrastructure' },
+      { slug: 'event-safety-technical-compliance', name: 'Event Safety & Technical Compliance' },
+      { slug: 'exhibition-trade-show-technology', name: 'Exhibition & Trade Show Technology' },
+      { slug: 'awards-gala-special-events', name: 'Awards, Gala & Special Events' },
+      { slug: 'government-institutional-events', name: 'Government & Institutional Events' },
+      { slug: 'religious-event-technology-production', name: 'Religious Event Technology & Production' },
+      { slug: 'event-registration-audience-technology', name: 'Event Registration & Audience Technology' },
+      { slug: 'equipment-transport-event-logistics', name: 'Equipment Transport & Event Logistics' },
+      { slug: 'pre-event-testing-rehearsal', name: 'Pre-Event Testing & Rehearsal' },
+      { slug: 'specialized-visual-production', name: 'Specialized Visual Production' },
+      { slug: 'event-photography-add-on-services', name: 'Event Photography Add-On Services' },
+      { slug: 'digital-media-delivery-archiving', name: 'Digital Media Delivery & Archiving' }
+    ];
+
+    const $ = (s) => document.querySelector(s);
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const catName = (s) => (CATEGORIES.find(c => c.slug === s) || {}).name || s;
+    const money = (n) => '₦' + Number(n).toLocaleString('en-NG', { maximumFractionDigits: 2 });
+    const PH = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#20232A"/><rect x="25" y="35" width="50" height="34" rx="6" fill="none" stroke="#5C616A" stroke-width="3"/><circle cx="50" cy="52" r="8" fill="none" stroke="#5C616A" stroke-width="3"/></svg>');
+
+    let sb, products = [], editingId = null, savedImageUrl = '';
+
+    function toast(msg, isErr) {
+      const t = $('#toast');
+      t.textContent = msg; t.className = 'toast show' + (isErr ? ' err' : '');
+      clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+    function showMsg(el, text, ok) {
+      el.textContent = text; el.className = 'msg' + (ok ? ' ok' : '') + (text ? '' : ' hidden');
+    }
+
+    /* ---------- Start + sign in ---------- */
+    if (!CONFIG.SUPABASE_URL || !CONFIG.SUPABASE_ANON_KEY) {
+      showMsg($('#loginMsg'), 'Add your Supabase URL and anon key in the CONFIG block at the top of this file first.');
+      $('#loginBtn').disabled = true;
+    } else {
+      sb = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+      sb.auth.getSession().then(({ data }) => { if (data.session) enter(data.session); });
+    }
+
+    $('#loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      showMsg($('#loginMsg'), '');
+      $('#loginBtn').disabled = true; $('#loginBtn').textContent = 'Signing in…';
+      const { data, error } = await sb.auth.signInWithPassword({ email: $('#email').value.trim(), password: $('#password').value });
+      $('#loginBtn').disabled = false; $('#loginBtn').textContent = 'Sign in';
+      if (error) return showMsg($('#loginMsg'), 'Sign in failed: ' + error.message);
+      enter(data.session);
+    });
+
+    async function enter(session) {
+      const { data: isAdmin, error } = await sb.rpc('is_shop_admin');
+      if (error || !isAdmin) {
+        await sb.auth.signOut();
+        showMsg($('#loginMsg'), error
+          ? 'Could not check admin access. Make sure the setup SQL has been run. (' + error.message + ')'
+          : 'This account is not set up as a shop admin. Add its email to the shop_admins table.');
+        return;
+      }
+      $('#who').textContent = session.user.email;
+      $('#loginView').classList.add('hidden');
+      $('#appView').classList.remove('hidden');
+      fillCategorySelects();
+      loadProducts();
+    }
+
+    $('#logoutBtn').addEventListener('click', async () => {
+      await sb.auth.signOut();
+      $('#appView').classList.add('hidden'); $('#loginView').classList.remove('hidden');
+      $('#password').value = '';
+    });
+
+    /* ---------- Data ---------- */
+    function fillCategorySelects() {
+      $('#f_cat').innerHTML = '<option value="">Choose a category</option>' + CATEGORIES.map(c => `<option value="${c.slug}">${esc(c.name)}</option>`).join('');
+      $('#catFilter').innerHTML = '<option value="">All categories</option>' + CATEGORIES.map(c => `<option value="${c.slug}">${esc(c.name)}</option>`).join('');
+    }
+
+    async function loadProducts() {
+      $('#list').innerHTML = '<div class="empty">Loading products…</div>';
+      const { data, error } = await sb.from(CONFIG.TABLE).select('*').order('created_at', { ascending: false });
+      if (error) { $('#list').innerHTML = `<div class="empty">Could not load products: ${esc(error.message)}</div>`; return; }
+      products = data || [];
+      render();
+    }
+
+    function render() {
+      const q = $('#q').value.trim().toLowerCase(), cat = $('#catFilter').value;
+      const list = products.filter(p => (!cat || p.category === cat) && (!q || (p.name + ' ' + (p.description || '')).toLowerCase().includes(q)));
+
+      const live = products.filter(p => p.is_active).length;
+      const out = products.filter(p => !p.in_stock).length;
+      $('#stats').innerHTML = `<div class="stat"><b>${products.length}</b>Total</div><div class="stat"><b>${live}</b>Showing on shop</div><div class="stat"><b>${out}</b>Out of stock</div>`;
+
+      if (!list.length) {
+        $('#list').innerHTML = `<div class="empty">${products.length ? 'No products match your filter.' : 'No products yet.<br>Tap "+ New product" to add your first one.'}</div>`;
+        return;
+      }
+      $('#list').innerHTML = list.map(p => `
+        <div class="row-card ${p.is_active ? '' : 'off'}">
+          <img src="${esc(p.image_url || PH)}" alt="" onerror="this.onerror=null;this.src='${PH}'">
+          <div>
+            <h4>${esc(p.name)}</h4>
+            <div class="meta">
+              <span>${esc(catName(p.category))}</span>
+              <span>${p.price === null ? 'Price on request' : money(p.price)}</span>
+              <button class="pill ${p.in_stock ? 'on' : 'warn'}" type="button" data-toggle="in_stock" data-id="${p.id}">${p.in_stock ? 'In stock' : 'Out of stock'}</button>
+              <button class="pill ${p.is_active ? 'on' : ''}" type="button" data-toggle="is_active" data-id="${p.id}">${p.is_active ? 'Visible' : 'Hidden'}</button>
+              ${p.is_featured ? '<span class="pill on" style="cursor:default">Featured</span>' : ''}
+            </div>
+          </div>
+          <div class="row-actions">
+            <button class="btn btn-ghost btn-sm" type="button" data-edit="${p.id}">Edit</button>
+            <button class="btn btn-danger btn-sm" type="button" data-del="${p.id}">Delete</button>
+          </div>
+        </div>`).join('');
+    }
+
+    $('#q').addEventListener('input', render);
+    $('#catFilter').addEventListener('change', render);
+
+    document.addEventListener('click', async (e) => {
+      const tg = e.target.closest('[data-toggle]');
+      if (tg) {
+        const p = products.find(x => x.id === tg.dataset.id); if (!p) return;
+        const field = tg.dataset.toggle, value = !p[field];
+        const { error } = await sb.from(CONFIG.TABLE).update({ [field]: value }).eq('id', p.id);
+        if (error) return toast(error.message, true);
+        p[field] = value; render(); return;
+      }
+      const ed = e.target.closest('[data-edit]');
+      if (ed) return openForm(products.find(x => x.id === ed.dataset.edit));
+      const del = e.target.closest('[data-del]');
+      if (del) {
+        const p = products.find(x => x.id === del.dataset.del);
+        if (!p || !confirm(`Delete "${p.name}"? This cannot be undone.`)) return;
+        const { error } = await sb.from(CONFIG.TABLE).delete().eq('id', p.id);
+        if (error) return toast(error.message, true);
+        products = products.filter(x => x.id !== p.id); render(); toast('Product deleted');
+      }
+    });
+
+    /* ---------- Form ---------- */
+    $('#newBtn').addEventListener('click', () => openForm(null));
+    $('#cancelBtn').addEventListener('click', closeForm);
+    $('#modal').addEventListener('mousedown', (e) => { if (e.target === $('#modal')) closeForm(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeForm(); });
+
+    function openForm(p) {
+      editingId = p ? p.id : null;
+      savedImageUrl = p ? (p.image_url || '') : '';
+      $('#formTitle').textContent = p ? 'Edit product' : 'New product';
+      showMsg($('#formMsg'), '');
+      $('#f_name').value = p ? p.name : '';
+      $('#f_cat').value = p ? p.category : '';
+      $('#f_desc').value = p ? (p.description || '') : '';
+      $('#f_price').value = p && p.price !== null ? p.price : '';
+      $('#f_compare').value = p && p.compare_price !== null ? p.compare_price : '';
+      $('#f_url').value = savedImageUrl;
+      $('#f_file').value = '';
+      $('#f_preview').src = savedImageUrl || PH;
+      $('#f_sort').value = p ? p.sort_order : 0;
+      $('#f_stock').checked = p ? p.in_stock : true;
+      $('#f_feat').checked = p ? p.is_featured : false;
+      $('#f_active').checked = p ? p.is_active : true;
+      $('#modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      $('#f_name').focus();
+    }
+    function closeForm() {
+      $('#modal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    $('#f_file').addEventListener('change', () => {
+      const f = $('#f_file').files[0];
+      if (f) $('#f_preview').src = URL.createObjectURL(f);
+    });
+    $('#f_url').addEventListener('input', () => { if (!$('#f_file').files[0]) $('#f_preview').src = $('#f_url').value || PH; });
+
+    /* Shrink big phone photos before uploading (max 1200px wide, JPEG) */
+    async function compress(file) {
+      try {
+        const bmp = await createImageBitmap(file);
+        const scale = Math.min(1, 1200 / Math.max(bmp.width, bmp.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
+        c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+        const blob = await new Promise(r => c.toBlob(r, 'image/jpeg', 0.85));
+        return blob || file;
+      } catch (e) { return file; }
+    }
+
+    async function uploadImage(file) {
+      const blob = await compress(file);
+      const path = `products/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.jpg`;
+      const { error } = await sb.storage.from(CONFIG.BUCKET).upload(path, blob, { contentType: 'image/jpeg', cacheControl: '31536000' });
+      if (error) throw error;
+      return sb.storage.from(CONFIG.BUCKET).getPublicUrl(path).data.publicUrl;
+    }
+
+    $('#form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = $('#saveBtn');
+      btn.disabled = true; btn.textContent = 'Saving…';
+      showMsg($('#formMsg'), '');
+      try {
+        let image_url = $('#f_url').value.trim();
+        const file = $('#f_file').files[0];
+        if (file) { btn.textContent = 'Uploading photo…'; image_url = await uploadImage(file); }
+
+        const num = (v) => v === '' ? null : Number(v);
+        const payload = {
+          name: $('#f_name').value.trim(),
+          category: $('#f_cat').value,
+          description: $('#f_desc').value.trim() || null,
+          price: num($('#f_price').value),
+          compare_price: num($('#f_compare').value),
+          image_url: image_url || null,
+          in_stock: $('#f_stock').checked,
+          is_featured: $('#f_feat').checked,
+          is_active: $('#f_active').checked,
+          sort_order: parseInt($('#f_sort').value, 10) || 0
+        };
+        if (!payload.name || !payload.category) throw new Error('Name and category are required.');
+
+        const q = editingId
+          ? sb.from(CONFIG.TABLE).update(payload).eq('id', editingId)
+          : sb.from(CONFIG.TABLE).insert(payload);
+        const { error } = await q;
+        if (error) throw error;
+
+        closeForm(); await loadProducts();
+        toast(editingId ? 'Product updated' : 'Product added');
+      } catch (err) {
+        showMsg($('#formMsg'), 'Could not save: ' + (err.message || err));
+      } finally {
+        btn.disabled = false; btn.textContent = 'Save product';
+      }
+    });
+  </script>
+</body>
+
+</html>

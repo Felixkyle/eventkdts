@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--SEO-->
+<title>Loading… | KADIS Blog</title>
+<meta name="description" content="Guides on event equipment rental, media production and more from Kadis, Abuja.">
+<meta name="robots" content="noindex">
+<!--/SEO-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#0B0C0F;--bg-2:#131519;--bg-3:#1A1D22;--bg-4:#20232A;--ink:#EDEEEC;--ink-dim:#9A9FA8;--ink-dimmer:#5C616A;--line:rgba(255,255,255,.07);--line-bright:rgba(255,255,255,.13);--amber:#D9772E;--amber-soft:#E8A15E;--moss:#A9B84C;--wine:#C24D5C}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:rgb(46,45,44);color:var(--ink);font-family:'Manrope',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Sora',sans-serif;letter-spacing:-.02em}
+.mono{font-family:'Space Mono',monospace}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+button{font-family:inherit}
+::selection{background:var(--amber-soft);color:#111}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 15% 8%,rgba(217,119,46,.08),transparent 40%),radial-gradient(circle at 85% 25%,rgba(194,77,92,.05),transparent 35%),radial-gradient(circle at 50% 90%,rgba(169,184,76,.045),transparent 45%);pointer-events:none;z-index:0}
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+.topbar{background:var(--bg-2);border-bottom:1px solid var(--line);font-size:12.5px;color:var(--ink-dim)}
+.topbar .wrap{display:flex;justify-content:space-between;align-items:center;height:38px;flex-wrap:wrap}
+.topbar .dot{color:var(--amber-soft);margin-right:6px}
+.topbar-right{display:flex;gap:22px;align-items:center}
+.topbar-right .mono{color:var(--amber-soft);font-weight:700}
+nav{position:sticky;top:0;z-index:50;background:rgba(11,12,15,.82);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:78px}
+.nav-links{display:flex;align-items:center;gap:26px;font-size:13.5px;font-weight:600;color:var(--ink-dim)}
+.nav-links a{padding:6px 0;transition:color .2s}.nav-links a:hover{color:var(--ink)}
+.nav-actions{display:flex;align-items:center;gap:12px}
+.btn-primary{background:var(--amber);color:#0B0C0F;font-weight:700;font-size:13.5px;padding:11px 20px;border-radius:10px;box-shadow:0 8px 22px rgba(217,119,46,.22);transition:transform .25s,background .25s;white-space:nowrap;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.btn-primary:hover{transform:translateY(-2px);background:var(--amber-soft)}
+.btn-ghost{border:1px solid var(--line-bright);color:var(--ink);font-weight:700;font-size:13.5px;padding:13px 22px;border-radius:10px;transition:all .25s;display:flex;align-items:center;gap:8px}
+.btn-ghost:hover{border-color:var(--amber);background:rgba(217,119,46,.06);transform:translateY(-2px)}
+.btn-dark{background:var(--bg-4);color:var(--ink);font-weight:700;font-size:13.5px;padding:11px 20px;border-radius:10px;border:1px solid var(--line-bright);transition:all .25s;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.btn-dark:hover{border-color:var(--amber);color:var(--amber-soft);transform:translateY(-2px)}
+.nav-toggle{display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:40px;height:40px;border-radius:10px;border:1px solid var(--line-bright);background:transparent;cursor:pointer;padding:0}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--ink)}
+@media(max-width:1100px){.nav-toggle{display:flex}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg-3);border-bottom:1px solid var(--line-bright);padding:6px 20px 24px}nav.menu-open .nav-links{display:flex}.nav-links a{padding:14px 4px;border-bottom:1px solid var(--line)}}
+@media(max-width:560px){.nav-actions .btn-dark{display:none}.nav-inner{height:66px}.wrap{padding:0 20px}}
+.crumb{padding:18px 0 0;font-size:12.5px;color:var(--ink-dimmer)}
+.crumb a:hover{color:var(--amber-soft)}
+.blog-hero{padding:44px 0 10px}
+.em-hero-text{margin-left:10px;color:#fff}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'Space Mono';font-size:12px;letter-spacing:.08em;color:var(--amber-soft);background:rgba(217,119,46,.08);border:1px solid rgba(217,119,46,.25);padding:7px 14px;border-radius:100px;margin-bottom:20px}
+.eyebrow::before{content:'●';color:var(--moss);font-size:8px}
+.blog-hero h1{font-size:44px;line-height:1.08;font-weight:800;margin-bottom:14px;max-width:720px}
+.grad{background:linear-gradient(100deg,var(--amber) 10%,var(--wine) 90%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:16px;color:whitesmoke;max-width:560px;line-height:1.65}
+@media(max-width:700px){.blog-hero h1{font-size:32px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* post cards */
+.grid{padding:50px 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:22px}
+.pc{background:var(--bg-2);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .22s,transform .22s}
+.pc:hover{border-color:rgba(217,119,46,.4);transform:translateY(-3px)}
+.pc:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.pc-img{aspect-ratio:16/10;background:var(--bg-3);overflow:hidden}
+.pc-img img{width:100%;height:100%;object-fit:cover}
+.pc-b{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.pc-c{font-family:'Space Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--amber-soft)}
+.pc h2{font:700 19px/1.3 'Sora';letter-spacing:-.01em}
+.pc p{font-size:13.5px;color:var(--ink-dim);line-height:1.7}
+.pc-m{margin-top:auto;padding-top:6px;font-size:12px;color:var(--ink-dimmer);display:flex;justify-content:space-between}
+.pc-m b{color:var(--amber-soft);font-weight:700}
+.empty{color:var(--ink-dim);font-size:14.5px;padding:30px 4px;line-height:1.7}
+.cta-band{background:linear-gradient(120deg,rgba(217,119,46,.12),rgba(194,77,92,.06));border:1px solid rgba(217,119,46,.22);border-radius:24px;padding:52px;text-align:center;margin:70px 0}
+.cta-band h2{font-size:26px;margin-bottom:12px}
+.cta-band p{color:var(--ink-dim);margin:0 auto 26px;max-width:480px}
+.cta-buttons{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);background:var(--bg-2)}
+.foot-promo{background:linear-gradient(115deg,rgba(217,119,46,.1),rgba(169,184,76,.04));border-bottom:1px solid var(--line);padding:22px 0}
+.foot-promo .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-promo p{font-size:13.5px;color:var(--ink-dim);max-width:760px;line-height:1.7}.foot-promo b{color:var(--ink)}
+.foot-bottom{padding:22px 0;display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-dimmer);flex-wrap:wrap;gap:16px;align-items:center}
+.wa-float{position:fixed;bottom:26px;right:26px;z-index:70;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C4A);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 30px rgba(37,211,102,.35);font-size:26px;color:#fff}
+
+.back{display:inline-block;margin:26px 0 0;font-size:13px;font-weight:700;color:var(--amber-soft)}
+.art{max-width:860px;margin:0 auto;padding:18px 0 0}
+.art-cover{border-radius:20px;overflow:hidden;border:1px solid var(--line-bright);aspect-ratio:16/9;margin:20px 0 26px;box-shadow:0 20px 44px rgba(0,0,0,.35)}
+.art-cover img{width:100%;height:100%;object-fit:cover}
+.art-cat{font-family:'Space Mono';font-size:11.5px;color:var(--amber-soft);text-transform:uppercase;letter-spacing:.04em}
+.art h1{font:800 38px/1.14 'Sora';margin:10px 0 12px;color:#fff}
+@media(max-width:700px){.art h1{font-size:28px}}
+.art-meta{font-size:13px;color:#fff;margin-bottom:26px}
+.rt h2{font:800 26px/1.18 'Sora';margin:26px 0 14px;color:var(--ink)}
+.rt h3{font:700 20px/1.25 'Sora';margin:22px 0 10px;color:var(--ink)}
+.rt p{font-size:16px;color:#d4d6da;line-height:1.8;margin-bottom:16px}
+.rt b{color:#fff}
+.rt blockquote{border-left:3px solid var(--amber);padding:6px 0 6px 18px;margin:18px 0;font-size:17px;font-style:italic;color:var(--ink)}
+.rt ul,.rt ol{margin:0 0 16px 22px;color:#d4d6da;font-size:16px;line-height:1.8}
+.rt a{color:var(--amber-soft);text-decoration:underline}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+.tags span{font-size:11.5px;font-weight:600;color:var(--amber-soft);background:rgba(217,119,46,.1);border:1px solid rgba(217,119,46,.25);padding:4px 11px;border-radius:100px}
+.share{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:20px 0;border-top:1px solid var(--line-bright);margin-top:12px}
+.share span{font-size:13px;color:var(--ink-dim);margin-right:4px}
+
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <div><span class="dot">●</span>Events & Media — book a shoot, a crew or gear, anywhere across Abuja</div>
+  <div class="topbar-right"><span class="mono">KADIS EVENTS</span><a class="mono" href="tel:08061379390">📞 0806 137 9390</a></div>
+</div></div>
+
+<nav><div class="wrap nav-inner">
+  <a href="index.html"><img src="images/kadis eventmedia.png" alt="Kadis" style="height:38px;width:auto;border-radius:8px"></a>
+  <div class="nav-links">
+    <a href="media.html">Media</a><a href="event.html">Events</a><a href="index.html#rentals">Rentals</a><a href="portfolio.html">Portfolio</a><a href="package.html">Packages</a><a href="index.html#about">About</a><a href="blog.html">Blog</a><a href="index.html#contact">Contact</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-toggle" type="button" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
+    <a class="btn-dark" href="https://wa.me/2348061379390?text=Hi%20Kadis%2C%20I%27d%20like%20to%20book%20or%20rent%20something.">Book / Rent Now</a>
+    <a class="btn-primary" href="https://wa.me/2348061379390?text=Hi%20Kadis%2C%20I%27d%20like%20a%20quote%20for%20media%2Fevents.">Request a Quote</a>
+  </div>
+</div></nav>
+
+<!--MAIN-->
+<div class="wrap crumb"><a href="index.html">Home</a> · <a href="blog.html">Blog</a> · <span id="crumbt">Guide</span></div>
+<main class="wrap">
+  <div class="art"><a class="back" href="blog.html">← All guides</a><article id="art" aria-live="polite"><p class="empty">Loading…</p></article></div>
+  <div class="cta-band">
+    <h2>Need this done for your event?</h2>
+    <p>Tell us the date, the occasion and what you need, and we'll get a crew, a quote or a gear list moving toward you.</p>
+    <div class="cta-buttons">
+      <a class="btn-primary" href="https://wa.me/2348061379390?text=Hi%20Kadis%2C%20I%27d%20like%20a%20quote%20for%20media%2Fevents.">Request a Quote →</a>
+      <a class="btn-ghost" href="index.html#rentals">Browse Equipment Rentals</a>
+      <a class="btn-dark" href="tel:08061379390">Call 0806 137 9390</a>
+    </div>
+  </div>
+</main>
+<!--/MAIN-->
+
+<footer>
+  <div class="foot-promo"><div class="wrap">
+    <p><b>Ready to book?</b> — reach us by phone or WhatsApp for a quote on media, event production or equipment rentals, anywhere within Abuja and 4 surrounding states.</p>
+    <a class="btn-primary" href="https://wa.me/2348061379390">Book Now →</a>
+  </div></div>
+  <!-- PASTE YOUR FULL FOOTER COLUMNS (.foot-main) HERE if you want them -->
+  <div class="wrap"><div class="foot-bottom">
+    <span>© 2020–2026 KADIS.COM.NG · All Rights Reserved</span>
+    <span>Powered by E-Franky Global Services Limited</span>
+  </div></div>
+</footer>
+<a class="wa-float" href="https://wa.me/2348061379390" aria-label="Chat on WhatsApp">💬</a>
+
+<script>
+const SUPABASE_URL='https://rsygjttdwptbxsgfievo.supabase.co', SUPABASE_KEY='sb_publishable_o3TGYm2cKC0D_fIWy6T7VA_SjpiYBIq';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const css=v=>String(v).replace(/[^#\w(),.% -]/g,'');
+const OK={B:'b',STRONG:'b',I:'i',EM:'i',U:'u',S:'s',STRIKE:'s',H1:'h2',H2:'h2',H3:'h3',H4:'h3',BLOCKQUOTE:'blockquote',UL:'ul',OL:'ol',LI:'li',P:'p',DIV:'p'};
+function clean(html){
+  const d=document.createElement('div');d.innerHTML=html;
+  d.querySelectorAll('script,style,iframe,object,svg,img,table').forEach(e=>e.remove());
+  const w=n=>{let o='';n.childNodes.forEach(c=>{
+    if(c.nodeType===3){o+=esc(c.nodeValue);return}if(c.nodeType!==1)return;
+    const t=c.tagName,i=w(c);
+    if(t==='BR'){o+='<br>';return}
+    if(t==='A'){const h=c.getAttribute('href')||'';o+=/^(https?:|mailto:|tel:)/i.test(h)?`<a href="${esc(h)}" target="_blank" rel="noopener noreferrer">${i}</a>`:i;return}
+    if(OK[t]){o+=`<${OK[t]}>${i}</${OK[t]}>`;return}
+    if(t==='SPAN'||t==='FONT'){let s='';const col=c.style.color,bg=c.style.backgroundColor;
+      if(col)s+=`color:${css(col)};`;if(bg)s+=`background-color:${css(bg)};`;o+=s?`<span style="${s}">${i}</span>`:i;return}
+    o+=i});return o};
+  return w(d)
+}
+const plain=h=>{const d=document.createElement('div');d.innerHTML=h||'';return (d.textContent||'').replace(/\s+/g,' ').trim()};
+const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const fmt=d=>new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+const nav=document.querySelector('nav');
+nav.querySelector('.nav-toggle').onclick=()=>nav.classList.toggle('menu-open');
+document.querySelectorAll('a[href*="wa.me"]').forEach(a=>{a.target='_blank';a.rel='noopener noreferrer'});
+
+const art=document.getElementById('art');
+const setMeta=(sel,attr,val,make)=>{let e=document.querySelector(sel);if(!e){e=document.createElement(make[0]);e.setAttribute(make[1],make[2]);document.head.appendChild(e)}e.setAttribute(attr,val)};
+function notFound(){
+  document.title='Guide not found | KADIS Blog';
+  setMeta('meta[name=robots]','content','noindex',['meta','name','robots']);
+  art.innerHTML='<h1>Guide not found</h1><p class="empty">This guide may have been moved or unpublished. <a href="blog.html" style="color:var(--amber-soft)">See all guides →</a></p>';
+}
+(async()=>{
+  const slug=new URLSearchParams(location.search).get('slug');
+  if(!slug)return notFound();
+  try{
+    const {data:p,error}=await sb.from('posts').select('slug,title,cat,tags,body,img_url,read_mins,cta_label,cta_href,created_at').eq('slug',slug).eq('published',true).maybeSingle();
+    if(error)throw error;if(!p)return notFound();
+    const url=location.origin+location.pathname.replace(/[^/]*$/,'')+'post.html?slug='+encodeURIComponent(p.slug);
+    const img=/^https?:\/\//.test(p.img_url||'')?p.img_url:'';
+    const desc=plain(p.body).slice(0,155);
+    const ttl=p.title+' | KADIS Blog';
+    document.title=ttl;
+    setMeta('meta[name=description]','content',desc,['meta','name','description']);
+    setMeta('meta[name=robots]','content','index,follow',['meta','name','robots']);
+    setMeta('link[rel=canonical]','href',url,['link','rel','canonical']);
+    [['og:type','article'],['og:title',p.title],['og:description',desc],['og:url',url],['og:site_name','KADIS Events, Media & Rentals'],...(img?[['og:image',img]]:[])]
+      .forEach(([k,v])=>setMeta(`meta[property="${k}"]`,'content',v,['meta','property',k]));
+    setMeta('meta[name="twitter:card"]','content',img?'summary_large_image':'summary',['meta','name','twitter:card']);
+    const ld=document.createElement('script');ld.type='application/ld+json';
+    ld.textContent=JSON.stringify({'@context':'https://schema.org','@type':'Article',headline:p.title,description:desc,...(img?{image:[img]}:{}),
+      datePublished:p.created_at,dateModified:p.updated_at||p.created_at,mainEntityOfPage:url,articleSection:p.cat,
+      author:{'@type':'Organization',name:'KADIS Events, Media & Rentals'},
+      publisher:{'@type':'Organization',name:'KADIS Events, Media & Rentals'}});
+    document.head.appendChild(ld);
+    document.getElementById('crumbt').textContent=p.title;
+    const href=/^(https?:\/\/|mailto:|tel:)/i.test(p.cta_href||'')?p.cta_href:'';
+    const tags=(Array.isArray(p.tags)?p.tags:[]).map(t=>`<span>${esc(t)}</span>`).join('');
+    art.innerHTML=`<span class="art-cat">${esc(p.cat)}</span><h1>${esc(p.title)}</h1>
+      <div class="art-meta">${fmt(p.created_at)} · ${+p.read_mins||1} min read</div>
+      ${img?`<div class="art-cover"><img src="${esc(img)}" alt="${esc(p.title)}"></div>`:''}
+      <div class="rt" id="rt">${clean(p.body||'')}</div>
+      ${tags?`<div class="tags">${tags}</div>`:''}
+      ${href?`<a class="btn-primary" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(p.cta_label||'Talk to Kadis')} →</a>`:''}
+      <div class="share"><span>Share this guide</span>
+        <button class="btn-dark" id="cp" type="button">Copy link</button>
+        <a class="btn-dark" target="_blank" rel="noopener noreferrer" href="https://wa.me/?text=${encodeURIComponent(p.title+' '+url)}">WhatsApp</a>
+        <a class="btn-dark" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}">Facebook</a>
+        <a class="btn-dark" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(p.title)}">X</a>
+      </div>`;
+    const f=document.querySelector('#rt h2');if(f&&f.textContent.trim().toLowerCase()===p.title.trim().toLowerCase())f.remove();
+    document.getElementById('cp').onclick=async e=>{
+      try{await navigator.clipboard.writeText(url)}catch(_){const t=document.createElement('input');t.value=url;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}
+      e.target.textContent='Link copied ✓';setTimeout(()=>e.target.textContent='Copy link',2000)};
+  }catch(e){console.warn(e);art.innerHTML='<p class="empty">This guide is taking a moment to load. Please refresh, or <a href="https://wa.me/2348061379390" style="color:var(--amber-soft)">message us on WhatsApp</a>.</p>'}
+})();
+</script>
+</body>
+</html>
